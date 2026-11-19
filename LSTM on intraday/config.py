@@ -49,7 +49,7 @@ FEATURES = [
     "EMA_9", "VWAP", "RSI_14", "ATR_14",
     "Minute_of_Day_sin", "Minute_of_Day_cos",
 ]
-TARGET = "Close"                # next candle's Close
+TARGET = "Close"                # next candle's Close (modelled as log return, reported in USD)
 VOLUME_FEATURE_IDX = FEATURES.index("Volume")
 
 # ── Metrics ───────────────────────────────────────────────────────────────

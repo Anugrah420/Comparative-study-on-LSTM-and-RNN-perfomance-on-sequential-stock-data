@@ -18,9 +18,9 @@ import numpy as np
 import pandas as pd
 
 import config as C
-from data import make_windows
+from data import make_windows, to_price
 from metrics import directional_accuracy, regression_metrics
-from train import inverse_target, predict
+from train import predict
 
 
 # ── helpers ──────────────────────────────────────────────────────────────
@@ -175,7 +175,7 @@ def volume_ablation(model, feat, scalers, test_days, base_meta, base_pred, devic
                                            else v * np.exp(rng.normal(0, 0.5, len(v))))
             ws = make_windows(f2, scalers, test_days)
             assert (ws.meta["target_timestamp"].values == base_meta["target_timestamp"].values).all()
-            p = inverse_target(scalers, predict(model, ws.X, device))
+            p = to_price(scalers, predict(model, ws.X, device), close)
             r, _ = regression_metrics(act, p)
             d_rmse.append((r - rmse0) / rmse0 * 100)
             d_da.append(directional_accuracy(close, act, p) - da0)

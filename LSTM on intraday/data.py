@@ -81,6 +81,13 @@ def load_data(csv_path: str | None = None, save_cache: bool = True) -> pd.DataFr
             df.to_csv(C.RAW_CACHE_CSV)
             print(f"[data] Saved raw snapshot -> {C.RAW_CACHE_CSV}")
 
+    # Drop a trailing session that is still in progress (run during market hours)
+    last_day = df.index[-1].date()
+    n_last = int((df.index.date == last_day).sum())
+    if n_last < C.BARS_PER_DAY and df.index[-1].strftime("%H:%M") != C.SESSION_LAST_BAR:
+        df = df[df.index.date != last_day]
+        print(f"[data] Dropped in-progress session {last_day} ({n_last} bars)")
+
     n_days = len(np.unique(df.index.date))
     print(f"[data] Rows: {len(df):,} | Range: {df.index.min()} -> {df.index.max()} "
           f"| Trading days: {n_days}")
@@ -163,10 +170,50 @@ class Scalers:
     fit_last_ts: pd.Timestamp
 
 
+def model_inputs(df: pd.DataFrame) -> np.ndarray:
+    """Price-RELATIVE (stationary) encoding of the same 11 features.
+
+    Raw price levels drift out of the training range (AAPL went from ~$310 in
+    train to ~$358 in test), and a StandardScaler fit on train cannot
+    extrapolate -> predictions get stuck near the train maximum. Every price
+    feature is therefore expressed relative to the bar's own Close, so the
+    inputs look the same at $310 or $360. Same information, no look-ahead.
+    Computed on the fly so the Volume ablation flows through automatically."""
+    c = df["Close"]
+    prev = c.groupby(df["session"]).shift(1)              # no overnight return
+    cols = {
+        "Open": np.log(df["Open"] / c),
+        "High": np.log(df["High"] / c),
+        "Low": np.log(df["Low"] / c),
+        "Close": np.log(c / prev).fillna(0.0),             # 1-bar log return
+        "Volume": np.log1p(df["Volume"]),
+        "EMA_9": np.log(df["EMA_9"] / c),
+        "VWAP": np.log(df["VWAP"] / c),
+        "RSI_14": df["RSI_14"] / 100.0,
+        "ATR_14": df["ATR_14"] / c,
+        "Minute_of_Day_sin": df["Minute_of_Day_sin"],
+        "Minute_of_Day_cos": df["Minute_of_Day_cos"],
+    }
+    return np.column_stack([np.asarray(cols[f], float) for f in C.FEATURES])
+
+
+def next_log_return(df: pd.DataFrame) -> np.ndarray:
+    """Target: log(Close_{t+1} / Close_t) within the session (NaN on last bar)."""
+    c = df["Close"]
+    return np.log(c.groupby(df["session"]).shift(-1) / c).to_numpy(float)
+
+
+def to_price(scalers: "Scalers", y_scaled, close_t) -> np.ndarray:
+    """Inverse-transform predicted scaled return -> predicted next Close (USD)."""
+    r = scalers.y.inverse_transform(np.asarray(y_scaled, float).reshape(-1, 1)).ravel()
+    return np.asarray(close_t, float) * np.exp(r)
+
+
 def fit_scalers(feat: pd.DataFrame, train_days) -> Scalers:
     tr = feat[feat["session"].isin(train_days)]
-    xs = StandardScaler().fit(tr[C.FEATURES].to_numpy(float))
-    ys = StandardScaler().fit(tr[[C.TARGET]].to_numpy(float))
+    xs = StandardScaler().fit(model_inputs(tr))
+    y = next_log_return(tr)
+    ys = StandardScaler().fit(y[np.isfinite(y)].reshape(-1, 1))
     return Scalers(xs, ys, len(tr), tr.index.max())
 
 
@@ -176,14 +223,15 @@ def fit_scalers(feat: pd.DataFrame, train_days) -> Scalers:
 @dataclass
 class WindowSet:
     X: np.ndarray        # [N, WINDOW, F] scaled inputs
-    y: np.ndarray        # [N] scaled next-bar close
+    y: np.ndarray        # [N] scaled next-bar log return
     meta: pd.DataFrame   # one row per sample (bar t = last input bar)
 
 
 def make_windows(feat: pd.DataFrame, scalers: Scalers, days, window: int = C.WINDOW) -> WindowSet:
     sub = feat[feat["session"].isin(days)]
-    Xs = scalers.x.transform(sub[C.FEATURES].to_numpy(float)).astype(np.float32)
-    ys = scalers.y.transform(sub[[C.TARGET]].to_numpy(float)).ravel().astype(np.float32)
+    Xs = scalers.x.transform(model_inputs(sub)).astype(np.float32)
+    y_raw = next_log_return(sub)
+    ys = scalers.y.transform(np.nan_to_num(y_raw).reshape(-1, 1)).ravel().astype(np.float32)
     ts = sub.index
     sess = sub["session"].to_numpy()
     feat_pos = feat.index.get_indexer(ts)            # positions in the full frame
@@ -237,7 +285,8 @@ def assert_no_leakage(clean: pd.DataFrame, feat: pd.DataFrame, splits: dict, sca
     assert np.allclose(a, b, rtol=1e-9, atol=1e-9), "Indicator look-ahead detected!"
 
     assert scalers.x.n_samples_seen_ == len(train_rows), "X scaler saw non-train rows!"
-    assert scalers.y.n_samples_seen_ == len(train_rows), "y scaler saw non-train rows!"
+    n_y = int(np.isfinite(next_log_return(train_rows)).sum())
+    assert scalers.y.n_samples_seen_ == n_y, "y scaler saw non-train rows!"
     assert scalers.fit_last_ts < first_val < first_test, "Scaler fit window overlaps val/test!"
     print("[leakage] OK — indicators causal; scalers fit on TRAIN only "
           f"({scalers.n_train_rows:,} rows, last fit bar {scalers.fit_last_ts}).")

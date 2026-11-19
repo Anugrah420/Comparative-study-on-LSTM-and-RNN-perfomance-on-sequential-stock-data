@@ -21,9 +21,9 @@ import diagnostics as D
 import metrics as M
 import plots as P
 from backtest import buy_and_hold, generate_signals, run_backtest
-from data import prepare
+from data import prepare, to_price
 from models import LSTMRegressor, count_params, extract_gates, param_matched_hidden, print_param_report
-from train import get_device, inverse_target, predict, set_seed, train_model
+from train import get_device, predict, set_seed, train_model
 
 FX_NOTE = ("FX assumption: AAPL trades in USD. Strategy returns are compounded with fractional "
            "shares and equity is expressed in ₹ as INITIAL_CAPITAL × cumulative growth factor, "
@@ -36,8 +36,8 @@ LIMITATIONS = """LIMITATIONS
  • Single asset (AAPL), single regime; no evidence this generalises to other stocks or periods.
  • Overfitting risk: ~1–1.5k training windows vs ~50k LSTM parameters; early stopping on a
    ~9-day validation set is itself noisy. A single seed is reported.
- • Price-level target: predicting the next Close level makes RMSE/MAPE look good even for a
-   near-persistence model; compare against the persistence baseline, not in absolute terms.
+ • Target is the next-bar log return (converted back to a price for RMSE/MAPE). Price-level RMSE
+   is dominated by the current price, so always compare against the persistence baseline.
  • Costs: 0.05 % per side, no slippage, no borrow fees, fills at bar close. Results are highly
    sensitive to this; re-run with COST_PER_SIDE = 0.0010 to stress-test.
  • FX held constant (see note); fractional shares and 100 % equity per trade are idealisations.
@@ -90,12 +90,13 @@ def main():
 
     # 4 ── predict on test ───────────────────────────────────────────────
     meta = ws["test"].meta.copy()
-    pred = inverse_target(scalers, predict(model, ws["test"].X, device))
-    close_t, actual = meta["close_t"].to_numpy(), meta["actual_next"].to_numpy()
+    close_t = meta["close_t"].to_numpy()
+    pred = to_price(scalers, predict(model, ws["test"].X, device), close_t)
+    actual = meta["actual_next"].to_numpy()
 
     # 5 ── gates ─────────────────────────────────────────────────────────
     gates = extract_gates(model, ws["test"].X, device)
-    assert np.allclose(inverse_target(scalers, gates["pred_scaled"]), pred, atol=1e-3)
+    assert np.allclose(to_price(scalers, gates["pred_scaled"], close_t), pred, atol=1e-3)
     np.savez_compressed(C.GATES_NPZ, forget=gates["forget"], input=gates["input"],
                         timestamp=meta["timestamp"].astype(str).to_numpy(),
                         layout=np.array("[sample, layer, timestep, hidden_unit]"))
@@ -124,7 +125,7 @@ def main():
         print(f"[robustness] param-matched LSTM: hidden={h}, recurrent params="
               f"{count_params(pm)['recurrent']:,} (RNN: {params['rnn_reference']['recurrent']:,})")
         pm, _ = train_model(pm, ws["train"], ws["val"], device, tag=f"LSTM-h{h}")
-        p_pm = inverse_target(scalers, predict(pm, ws["test"].X, device))
+        p_pm = to_price(scalers, predict(pm, ws["test"].X, device), close_t)
         bt_pm = run_backtest(test_bars, pd.Series(generate_signals(p_pm, close_t), index=sig_series.index))
         rows[f"LSTM (param-matched, h={h}) [robustness]"] = M.evaluate(bt_pm, close_t, actual, p_pm)
         params["param_matched_hidden"] = h
@@ -146,8 +147,8 @@ def main():
 
     # 8 ── diagnostics ───────────────────────────────────────────────────
     vol_z = D.volume_zscore(feat, splits["train"])
-    train_rows = feat[feat["session"].isin(splits["train"])]
-    vol_thr = float(np.nanpercentile(train_rows["ret_std_12"], C.VOL_PCTL))
+    # 75th pct over TRAIN decision bars (same time-of-day mix as test samples)
+    vol_thr = float(np.nanpercentile(ws["train"].meta["ret_std_12_t"], C.VOL_PCTL))
     diag = {
         "gates": D.gate_volume_analysis(gates, meta, vol_z),
         "vwap": D.vwap_analysis(meta, pred, rnn_pred),

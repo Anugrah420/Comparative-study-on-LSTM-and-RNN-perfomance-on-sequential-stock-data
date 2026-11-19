@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Generated outputs: large or regenerable
+#outputs/*.pt
+#outputs/*.npz
+#outputs/raw_aapl_5m.csv
+#outputs/training_history_intraday_lstm.csv
+#outputs/figures/
+
+# Keep the small result files so they can be shared and compared
+#!outputs/results_intraday_lstm.json
+#!outputs/test_predictions_intraday_lstm.csv

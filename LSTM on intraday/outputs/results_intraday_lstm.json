@@ -1,0 +1,170 @@
+{
+  "experiment": "intraday_lstm",
+  "model": "LSTM",
+  "ticker": "AAPL",
+  "config": {
+    "SEED": 42,
+    "WINDOW": 48,
+    "HIDDEN": 64,
+    "NUM_LAYERS": 2,
+    "DROPOUT": 0.2,
+    "BATCH": 128,
+    "LR": 0.001,
+    "EPOCHS": 60,
+    "PATIENCE": 8,
+    "GRAD_CLIP": 1.0,
+    "COST_PER_SIDE": 0.0005,
+    "INITIAL_CAPITAL": 100000,
+    "ANN_FACTOR": 19656,
+    "RF_ANNUAL": 0.0,
+    "FEATURES": [
+      "Open",
+      "High",
+      "Low",
+      "Close",
+      "Volume",
+      "EMA_9",
+      "VWAP",
+      "RSI_14",
+      "ATR_14",
+      "Minute_of_Day_sin",
+      "Minute_of_Day_cos"
+    ]
+  },
+  "data": {
+    "test_days": [
+      "2026-11-06",
+      "2026-11-09",
+      "2026-11-10",
+      "2026-11-11",
+      "2026-11-12",
+      "2026-11-13",
+      "2026-11-16",
+      "2026-11-17",
+      "2026-11-18"
+    ],
+    "n_test_samples": 240
+  },
+  "params": {
+    "lstm": {
+      "total": 53057,
+      "recurrent": 52992,
+      "head": 65
+    },
+    "rnn_reference": {
+      "total": 13313,
+      "recurrent": 13248,
+      "head": 65
+    },
+    "recurrent_ratio": 4.0
+  },
+  "metrics": {
+    "Strategy": {
+      "Total ROI (%)": -2.03486400977948,
+      "Net Profit (₹)": -2034.864009779485,
+      "Directional Accuracy (%)": 45.76271186440678,
+      "Profit Factor": 0.20560736769729643,
+      "Total Trades Executed": 17,
+      "Max Drawdown (%)": -2.361560739958557,
+      "VaR 95% (%)": -0.0795925900383132,
+      "VaR 95% (₹)": -79.5925900383132,
+      "Sharpe Ratio": -10.047010465421561,
+      "Sortino Ratio": -13.038254747122831,
+      "RMSE (USD)": 3.6218451708952215,
+      "MAPE (%)": 0.8074328231533405
+    },
+    "Buy & Hold": {
+      "Total ROI (%)": 3.232613569054288,
+      "Net Profit (₹)": 3232.613569054287,
+      "Directional Accuracy (%)": null,
+      "Profit Factor": null,
+      "Total Trades Executed": 1,
+      "Max Drawdown (%)": -2.7991021883607803,
+      "VaR 95% (%)": -0.18667373760233863,
+      "VaR 95% (₹)": -186.67373760233863,
+      "Sharpe Ratio": 4.709674179179782,
+      "Sortino Ratio": 8.673801151919102,
+      "RMSE (USD)": null,
+      "MAPE (%)": null
+    },
+    "Persistence": {
+      "Total ROI (%)": 0.0,
+      "Net Profit (₹)": 0.0,
+      "Directional Accuracy (%)": null,
+      "Profit Factor": null,
+      "Total Trades Executed": 0,
+      "Max Drawdown (%)": 0.0,
+      "VaR 95% (%)": 0.0,
+      "VaR 95% (₹)": 0.0,
+      "Sharpe Ratio": null,
+      "Sortino Ratio": null,
+      "RMSE (USD)": 0.2689825653147812,
+      "MAPE (%)": 0.05866775859029361
+    }
+  },
+  "diagnostics": {
+    "gates": {
+      "n_bars": 240,
+      "n_spikes": 5,
+      "spike_z": 2.0,
+      "pearson_forget_vs_volz": 0.1803178769151406,
+      "spearman_forget_vs_volz": 0.21466489088241164,
+      "forget_mean_spike": 0.5292196273803711,
+      "forget_mean_nonspike": 0.5254372358322144,
+      "forget_diff_spike_minus_non": 0.0037823940845246318,
+      "forget_perm_p": 0.0395,
+      "pearson_input_vs_volz": 0.15445424021916462,
+      "input_diff_spike_minus_non": 0.0035386755111369572,
+      "input_perm_p": 0.041,
+      "forget_next_step_diff_after_spike": 0.0020932555198669434,
+      "pearson_forget_vs_volz_all_steps": 0.015731135137167618,
+      "per_layer_pearson_forget_vs_volz": [
+        0.1799688795519289,
+        0.17424782244152087
+      ]
+    },
+    "vwap": {
+      "corr_pred_change_vs_vwap_dev": -0.2807599391032263,
+      "spearman_pred_change_vs_vwap_dev": -0.330414662236909,
+      "corr_actual_change_vs_vwap_dev": 0.03762963226090781,
+      "interpretation": "positive = predicts reversion toward VWAP; negative = predicts drift away",
+      "rnn_corr_pred_change_vs_vwap_dev": null
+    },
+    "volatility": {
+      "vol_threshold_ret_std_12": 0.0012155993258063634,
+      "high_vol": {
+        "n": 3,
+        "std_ratio_pred_to_actual": 1.335655335132005,
+        "rmse_usd": 1.9566745551172995,
+        "directional_accuracy_pct": 66.66666666666666
+      },
+      "low_vol": {
+        "n": 237,
+        "std_ratio_pred_to_actual": 8.785628889205546,
+        "rmse_usd": 3.6380416557700337,
+        "directional_accuracy_pct": 45.493562231759654
+      },
+      "flips_per_day_pred": 0.875,
+      "flips_per_day_actual": 14.25
+    },
+    "ablation": {
+      "base_rmse": 3.6218451708952215,
+      "base_da": 45.76271186440678,
+      "shuffle": {
+        "delta_rmse_pct_mean": -0.4696815517263245,
+        "delta_rmse_pct_std": 0.06413919167405373,
+        "delta_da_pp_mean": 0.7627118644067792,
+        "delta_da_pp_std": 0.6779661016949149
+      },
+      "lognormal_noise": {
+        "delta_rmse_pct_mean": -0.17791945514557483,
+        "delta_rmse_pct_std": 0.05362358243776648,
+        "delta_da_pp_mean": 0.0,
+        "delta_da_pp_std": 0.0
+      }
+    }
+  },
+  "verdict_label": "NOT SUPPORTED",
+  "verdict": "VERDICT: NOT SUPPORTED. (a) Forget gate on volume spikes (z>2, n=5): mean 0.529 vs 0.525 otherwise (Δ=+0.0038, permutation p=0.040); Pearson r(forget, vol-z)=+0.180 -> no reliable drop on spikes. (b) r(predicted Δ, (VWAP−Close)/VWAP)=-0.281 vs realised +0.038 -> VWAP tracking not established. (c) High-vol std(predΔ)/std(actualΔ)=1.336; direction flips/day=0.9. (d) Shuffling Volume changes RMSE by -0.47% and DA by +0.76 pp -> low sensitivity (consistent with filtering). Confounds: the LSTM has 4.0x the RNN's recurrent parameters, so differences may reflect capacity rather than gating (see the param-matched row); the test set is only 9 days of a 60-day sample, so these statistics are noisy and gate/volume correlation is not causation.",
+  "fx_note": "FX assumption: AAPL trades in USD. Strategy returns are compounded with fractional shares and equity is expressed in ₹ as INITIAL_CAPITAL × cumulative growth factor, i.e. USD/INR is held constant over the test window."
+}

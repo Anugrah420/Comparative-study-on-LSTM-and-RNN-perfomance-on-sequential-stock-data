@@ -3,7 +3,12 @@ backtest.py — signal rule + bar-by-bar intraday backtest (test set only).
 Identical to the RNN experiment.
 
 Rules
-  * Decision at the CLOSE of bar t using the predicted close of bar t+1.
+  * Decision at the CLOSE of bar t using the predicted close HORIZON bars ahead
+    (HORIZON=6 -> 30 minutes by default; see config.py). The position is
+    re-evaluated and can flip at EVERY bar using that bar's fresh HORIZON-
+    ahead forecast — it is not "hold for HORIZON bars then exit". This keeps
+    the backtest mechanics identical to the 1-bar version; it just acts on a
+    noisier-but-larger forecast each time.
   * LONG  if pred/close_t - 1 >  round-trip cost (2 x 0.05 %)
     SHORT if pred/close_t - 1 < -round-trip cost, else FLAT.
   * 100 % of equity per trade, fractional shares, compounded returns.

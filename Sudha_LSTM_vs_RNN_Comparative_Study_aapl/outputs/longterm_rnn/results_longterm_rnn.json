@@ -1,0 +1,741 @@
+{
+  "regime": "longterm_daily",
+  "model": "SimpleRNN",
+  "metrics": {
+    "total_roi_pct": 187.37925841909023,
+    "net_profit_inr": 187379.25841909024,
+    "final_equity_inr": 287379.25841909024,
+    "max_drawdown_pct": -43.737881636479855,
+    "var95_pct": -1.9022065286876093,
+    "var95_inr_on_initial_capital": -1902.2065286876093,
+    "sharpe": 0.4316796822096432,
+    "sortino": 0.6312682756547853,
+    "cagr_pct": 6.747587123147847,
+    "total_trades": 469,
+    "profit_factor": 1.1947916078618268,
+    "win_rate_pct": 55.437100213219615,
+    "gross_profit_inr": 1149326.543909979,
+    "gross_loss_inr": 961947.285490889,
+    "directional_accuracy_pct": 51.364642242439146,
+    "exposure_pct": 55.79283259695631,
+    "total_costs_inr_approx": 101147.53399712592,
+    "rmse_usd": 2.1762254260186698,
+    "mape_pct": 1.2458297156547924
+  },
+  "benchmarks": {
+    "buy_and_hold": {
+      "total_roi_pct": 4395.448656585401,
+      "net_profit_inr": 4395448.656585401,
+      "final_equity_inr": 4495448.656585401,
+      "max_drawdown_pct": -43.79715944553777,
+      "var95_pct": -2.6348267052615078,
+      "var95_inr_on_initial_capital": -2634.826705261508,
+      "sharpe": 0.9811702995824381,
+      "sortino": 1.4461741933050734,
+      "cagr_pct": 26.541618248148247,
+      "total_trades": 1,
+      "profit_factor": "inf",
+      "win_rate_pct": 100.0,
+      "gross_profit_inr": 4395448.656585401,
+      "gross_loss_inr": -0.0,
+      "directional_accuracy_pct": null,
+      "exposure_pct": 100.0
+    },
+    "persistence": {
+      "rmse_usd": 2.1728446997042616,
+      "mape_pct": 1.2346389373569915,
+      "directional_accuracy_pct": null
+    }
+  },
+  "evaluation_period": {
+    "oos_start": "2010-09-08",
+    "oos_end": "2026-11-18",
+    "in_sample_region": [
+      "2007-09-07",
+      "2010-09-08"
+    ]
+  },
+  "crash_analysis": [
+    {
+      "window": "2008 GFC",
+      "peak": "2007-12-28",
+      "trough": "2009-01-20",
+      "bh_full_history_mdd_pct": -60.866740913866515,
+      "status": "in-sample (not evaluated)"
+    },
+    {
+      "window": "2012–2013 drawdown",
+      "peak": "2012-09-19",
+      "trough": "2013-04-19",
+      "days": 144,
+      "status": "out-of-sample",
+      "bh_full_history_mdd_pct": -43.797159445537794,
+      "strategy_return_pct": -34.80684509446693,
+      "bh_return_pct": -43.79715944553778,
+      "strategy_mdd_pct": -34.80684509446693,
+      "bh_mdd_pct": -43.79715944553778,
+      "flat_fraction_pct": 39.58333333333333,
+      "overall_flat_fraction_pct": 44.20716740304369
+    },
+    {
+      "window": "2018–2019 drawdown",
+      "peak": "2018-10-03",
+      "trough": "2019-01-03",
+      "days": 62,
+      "status": "out-of-sample",
+      "bh_full_history_mdd_pct": -38.5158984272698,
+      "strategy_return_pct": -14.381223471524972,
+      "bh_return_pct": -38.51589842726981,
+      "strategy_mdd_pct": -14.39321460654429,
+      "bh_mdd_pct": -38.51589842726981,
+      "flat_fraction_pct": 72.58064516129032,
+      "overall_flat_fraction_pct": 44.20716740304369
+    },
+    {
+      "window": "2020 COVID crash",
+      "peak": "2020-02-12",
+      "trough": "2020-03-23",
+      "days": 27,
+      "status": "out-of-sample",
+      "bh_full_history_mdd_pct": -31.427284002693433,
+      "strategy_return_pct": 0.0,
+      "bh_return_pct": -31.427284002693423,
+      "strategy_mdd_pct": 0.0,
+      "bh_mdd_pct": -31.427284002693423,
+      "flat_fraction_pct": 100.0,
+      "overall_flat_fraction_pct": 44.20716740304369
+    },
+    {
+      "window": "2022 drawdown",
+      "peak": "2022-01-03",
+      "trough": "2023-01-05",
+      "days": 253,
+      "status": "out-of-sample",
+      "bh_full_history_mdd_pct": -30.912811036538944,
+      "strategy_return_pct": -31.713277088499524,
+      "bh_return_pct": -30.912811036539,
+      "strategy_mdd_pct": -31.713277088499524,
+      "bh_mdd_pct": -30.912811036539,
+      "flat_fraction_pct": 50.59288537549407,
+      "overall_flat_fraction_pct": 44.20716740304369
+    },
+    {
+      "window": "2024–2025 drawdown",
+      "peak": "2024-12-26",
+      "trough": "2025-04-08",
+      "days": 69,
+      "status": "out-of-sample",
+      "bh_full_history_mdd_pct": -33.36052250719654,
+      "strategy_return_pct": -20.28058505826168,
+      "bh_return_pct": -33.360522507196535,
+      "strategy_mdd_pct": -20.28058505826168,
+      "bh_mdd_pct": -33.360522507196535,
+      "flat_fraction_pct": 47.82608695652174,
+      "overall_flat_fraction_pct": 44.20716740304369
+    }
+  ],
+  "vanishing_gradient": {
+    "mean_top_layer_ratio": 1.0525433096922111e-11,
+    "mean_input_grad_ratio": 4.1789486515630994e-10,
+    "mean_effective_memory_steps": 11.529411764705882,
+    "per_fold": [
+      {
+        "grad_ratio_t1_over_tW": 4.135353406252307e-12,
+        "log10_decay_t1_over_tW": -11.383487369829263,
+        "effective_memory_steps_1pct": 8,
+        "per_layer_ratio": [
+          5.008908915404875e-12,
+          4.135353406252307e-12
+        ],
+        "input_grad_ratio_t1_over_tW": 4.587893866897508e-12
+      },
+      {
+        "grad_ratio_t1_over_tW": 2.7501087268040752e-12,
+        "log10_decay_t1_over_tW": -11.560650135799698,
+        "effective_memory_steps_1pct": 8,
+        "per_layer_ratio": [
+          3.2097506666913994e-12,
+          2.7501087268040752e-12
+        ],
+        "input_grad_ratio_t1_over_tW": 3.4912008180232323e-12
+      },
+      {
+        "grad_ratio_t1_over_tW": 4.644618383595217e-12,
+        "log10_decay_t1_over_tW": -11.33304996320042,
+        "effective_memory_steps_1pct": 9,
+        "per_layer_ratio": [
+          6.915736947537479e-12,
+          4.644618383595217e-12
+        ],
+        "input_grad_ratio_t1_over_tW": 4.635093957955361e-12
+      },
+      {
+        "grad_ratio_t1_over_tW": 2.1903353197223606e-13,
+        "log10_decay_t1_over_tW": -12.659489393672473,
+        "effective_memory_steps_1pct": 8,
+        "per_layer_ratio": [
+          2.811598622144069e-13,
+          2.1903353197223606e-13
+        ],
+        "input_grad_ratio_t1_over_tW": 2.5529871185842046e-13
+      },
+      {
+        "grad_ratio_t1_over_tW": 4.0853951621404216e-09,
+        "log10_decay_t1_over_tW": -8.388765929722284,
+        "effective_memory_steps_1pct": 12,
+        "per_layer_ratio": [
+          0.0005318805233709862,
+          4.0853951621404216e-09
+        ],
+        "input_grad_ratio_t1_over_tW": 0.0003303283592686057
+      },
+      {
+        "grad_ratio_t1_over_tW": 3.1630151300636675e-14,
+        "log10_decay_t1_over_tW": -13.499898730661752,
+        "effective_memory_steps_1pct": 9,
+        "per_layer_ratio": [
+          5.470166170114978e-14,
+          3.1630151300636675e-14
+        ],
+        "input_grad_ratio_t1_over_tW": 4.9296846579881606e-14
+      },
+      {
+        "grad_ratio_t1_over_tW": 1.4140748493388182e-12,
+        "log10_decay_t1_over_tW": -11.849527601999874,
+        "effective_memory_steps_1pct": 8,
+        "per_layer_ratio": [
+          1.9278507443021386e-12,
+          1.4140748493388182e-12
+        ],
+        "input_grad_ratio_t1_over_tW": 2.3721460993414434e-12
+      },
+      {
+        "grad_ratio_t1_over_tW": 1.537864188184197e-11,
+        "log10_decay_t1_over_tW": -10.813082016242342,
+        "effective_memory_steps_1pct": 11,
+        "per_layer_ratio": [
+          9.788590135741443e-09,
+          1.537864188184197e-11
+        ],
+        "input_grad_ratio_t1_over_tW": 6.7226442190815305e-09
+      },
+      {
+        "grad_ratio_t1_over_tW": 1.2700149274529099e-11,
+        "log10_decay_t1_over_tW": -10.896191174420162,
+        "effective_memory_steps_1pct": 12,
+        "per_layer_ratio": [
+          4.267739043227651e-06,
+          1.2700149274529099e-11
+        ],
+        "input_grad_ratio_t1_over_tW": 2.4849748569977237e-06
+      },
+      {
+        "grad_ratio_t1_over_tW": 1.582964708356077e-12,
+        "log10_decay_t1_over_tW": -11.800528767473125,
+        "effective_memory_steps_1pct": 8,
+        "per_layer_ratio": [
+          2.0047184808040637e-12,
+          1.582964708356077e-12
+        ],
+        "input_grad_ratio_t1_over_tW": 2.1726767520519052e-12
+      },
+      {
+        "grad_ratio_t1_over_tW": 2.3938701842719708e-12,
+        "log10_decay_t1_over_tW": -11.620899404381976,
+        "effective_memory_steps_1pct": 8,
+        "per_layer_ratio": [
+          2.828048030405586e-12,
+          2.3938701842719708e-12
+        ],
+        "input_grad_ratio_t1_over_tW": 2.101895480582927e-12
+      },
+      {
+        "grad_ratio_t1_over_tW": 3.926595688005488e-13,
+        "log10_decay_t1_over_tW": -12.405983814672524,
+        "effective_memory_steps_1pct": 9,
+        "per_layer_ratio": [
+          5.161993514483475e-13,
+          3.926595688005488e-13
+        ],
+        "input_grad_ratio_t1_over_tW": 3.6958486943593216e-13
+      },
+      {
+        "grad_ratio_t1_over_tW": 3.918366794638377e-11,
+        "log10_decay_t1_over_tW": -10.406894912539498,
+        "effective_memory_steps_1pct": 11,
+        "per_layer_ratio": [
+          7.856166492332476e-07,
+          3.918366794638377e-11
+        ],
+        "input_grad_ratio_t1_over_tW": 3.791353719861945e-07
+      },
+      {
+        "grad_ratio_t1_over_tW": 1.8515569231676517e-13,
+        "log10_decay_t1_over_tW": -12.73246293171738,
+        "effective_memory_steps_1pct": 12,
+        "per_layer_ratio": [
+          0.0013350921128644716,
+          1.8515569231676517e-13
+        ],
+        "input_grad_ratio_t1_over_tW": 0.0010095271281898022
+      },
+      {
+        "grad_ratio_t1_over_tW": 0.0016186378286712829,
+        "log10_decay_t1_over_tW": -2.7908503140662773,
+        "effective_memory_steps_1pct": 43,
+        "per_layer_ratio": [
+          0.0026357047054667766,
+          0.0016186378286712829
+        ],
+        "input_grad_ratio_t1_over_tW": 0.001326985890045762
+      },
+      {
+        "grad_ratio_t1_over_tW": 7.792550384598219e-12,
+        "log10_decay_t1_over_tW": -11.108320381007204,
+        "effective_memory_steps_1pct": 9,
+        "per_layer_ratio": [
+          9.138639789674576e-12,
+          7.792550384598219e-12
+        ],
+        "input_grad_ratio_t1_over_tW": 5.536333978067853e-12
+      },
+      {
+        "grad_ratio_t1_over_tW": 4.247783931145008e-12,
+        "log10_decay_t1_over_tW": -11.37183758229805,
+        "effective_memory_steps_1pct": 11,
+        "per_layer_ratio": [
+          8.926963109302381e-12,
+          4.247783931145008e-12
+        ],
+        "input_grad_ratio_t1_over_tW": 6.228082719689221e-12
+      }
+    ],
+    "mean_profile_top_layer": [
+      8.359330970494464e-07,
+      9.340360436288272e-07,
+      1.0457366805126646e-06,
+      1.1804791202394162e-06,
+      1.3186506081651578e-06,
+      1.4739556180751502e-06,
+      1.652981149067202e-06,
+      1.8392419410249067e-06,
+      2.063970092410448e-06,
+      2.2932021917663627e-06,
+      2.565994252351363e-06,
+      2.8526123238509203e-06,
+      3.1835537985436776e-06,
+      3.541784226786911e-06,
+      3.948875253689367e-06,
+      4.397124046744851e-06,
+      4.902468682281065e-06,
+      5.459782914925136e-06,
+      6.086031543678069e-06,
+      6.776212800613631e-06,
+      7.554532657515304e-06,
+      8.414712983593478e-06,
+      9.380938173062574e-06,
+      1.0443750894130122e-05,
+      1.1636021514048323e-05,
+      1.2954218110484553e-05,
+      1.4427998076669632e-05,
+      1.6064966644380115e-05,
+      1.7886575160801894e-05,
+      1.9907266809288483e-05,
+      2.2157378001972224e-05,
+      2.4661628813291228e-05,
+      2.7435530966037967e-05,
+      3.054959612802176e-05,
+      3.400226898384203e-05,
+      3.785560953665158e-05,
+      4.2149977963936455e-05,
+      4.6961033818071485e-05,
+      5.2383781685496364e-05,
+      5.8490942383539765e-05,
+      6.53481006067919e-05,
+      7.30957020730012e-05,
+      8.201753654943518e-05,
+      9.229689121384281e-05,
+      0.00010430286321854296,
+      0.00011871807803612789,
+      0.00013666124825771048,
+      0.00015929873149937468,
+      0.0001884416004847534,
+      0.00022860438275529305,
+      0.00028808048594274787,
+      0.00037294400167678864,
+      0.0005165044096750481,
+      0.0007423690916338648,
+      0.0011047467641594052,
+      0.0017302788110100664,
+      0.002728576643515707,
+      0.0042915457280982726,
+      0.006420543903539724,
+      0.01097983994302066
+    ],
+    "mean_profile_input": [
+      6.687100153612846e-07,
+      7.309446345971082e-07,
+      8.262591677521414e-07,
+      9.754975280884537e-07,
+      1.0332456668038503e-06,
+      1.2741913906211266e-06,
+      1.4346409216159373e-06,
+      1.6571683545407723e-06,
+      1.93089999811491e-06,
+      1.9733831777557498e-06,
+      2.388334905845113e-06,
+      2.5624453883210663e-06,
+      2.8773306439688895e-06,
+      3.4058812161674723e-06,
+      3.6220687888999237e-06,
+      4.427870862855343e-06,
+      4.668719611800043e-06,
+      5.216672434471548e-06,
+      6.550578291353304e-06,
+      7.344896857830463e-06,
+      9.336818948213477e-06,
+      9.919560397975147e-06,
+      1.0823329830600414e-05,
+      1.2805473488697316e-05,
+      1.3421384210232645e-05,
+      1.6069519915618002e-05,
+      1.752522075548768e-05,
+      2.1176067093620077e-05,
+      2.441176002321299e-05,
+      2.3241789676831104e-05,
+      2.94274232146563e-05,
+      3.5619970731204376e-05,
+      4.4796015572501346e-05,
+      5.217023863224313e-05,
+      5.538093682844192e-05,
+      6.846972974017262e-05,
+      7.648771861568093e-05,
+      8.127147157210857e-05,
+      9.536247671348974e-05,
+      0.00011717081360984594,
+      0.00013863883214071393,
+      0.00013385381316766143,
+      0.00014591263607144356,
+      0.00019556675397325307,
+      0.00022708649339620024,
+      0.00029014304163865745,
+      0.00036740853101946414,
+      0.0004897820763289928,
+      0.0006026643677614629,
+      0.0006366888410411775,
+      0.0008467176812700927,
+      0.0011211519595235586,
+      0.0013093143934383988,
+      0.0014224715996533632,
+      0.001632966217584908,
+      0.0024785820860415697,
+      0.002580862259492278,
+      0.002740888623520732,
+      0.002373023424297571,
+      0.0028174445033073425
+    ]
+  },
+  "verdict": {
+    "label": "INCONCLUSIVE",
+    "text": "Verdict: INCONCLUSIVE. Gradient diagnostic — across folds the top-layer gradient at the oldest step is 1.05e-11× the most-recent step (strong decay; effective memory ≈12 of 60 steps at a 1% threshold); the input-sensitivity ratio ‖∂L/∂x₁‖/‖∂L/∂x₆₀‖ is 4.18e-10, which is the number to compare against the LSTM run. Crash behaviour (out-of-sample only): 2012–2013 drawdown: strategy -34.8% vs B&H -43.8%, MDD -34.8% vs -43.8%, flat 40% of days (overall 44%) → mixed; 2018–2019 drawdown: strategy -14.4% vs B&H -38.5%, MDD -14.4% vs -38.5%, flat 73% of days (overall 44%) → adapted; 2020 COVID crash: strategy +0.0% vs B&H -31.4%, MDD 0.0% vs -31.4%, flat 100% of days (overall 44%) → adapted; 2022 drawdown: strategy -31.7% vs B&H -30.9%, MDD -31.7% vs -30.9%, flat 51% of days (overall 44%) → failed; 2024–2025 drawdown: strategy -20.3% vs B&H -33.4%, MDD -20.3% vs -33.4%, flat 48% of days (overall 44%) → mixed. 'Supported' requires strong decay AND failure in most out-of-sample crashes; a model that is flat most of the time is not credited with crash protection unless it is flat more often during crashes than overall. Caveat: the 2008 GFC lies inside the in-sample initial-training region, so it cannot count as evidence either way, and decay alone does not prove crash failure — compare with the LSTM run (python main.py --model lstm) before attributing differences to the cell."
+  },
+  "folds": [
+    {
+      "best_epoch": 1,
+      "best_val_loss": 0.490259708960851,
+      "epochs_run": 11,
+      "fold": 1,
+      "train_start": "2007-11-30",
+      "train_end": "2010-09-07",
+      "test_start": "2010-09-08",
+      "test_end": "2011-09-06",
+      "n_fit": 592,
+      "n_val": 105,
+      "n_test": 252,
+      "test_target_outside_train_range": 0.0
+    },
+    {
+      "best_epoch": 1,
+      "best_val_loss": 0.44121008859553806,
+      "epochs_run": 11,
+      "fold": 2,
+      "train_start": "2007-11-30",
+      "train_end": "2011-09-06",
+      "test_start": "2011-09-07",
+      "test_end": "2012-09-05",
+      "n_fit": 807,
+      "n_val": 142,
+      "n_test": 252,
+      "test_target_outside_train_range": 0.0
+    },
+    {
+      "best_epoch": 5,
+      "best_val_loss": 0.46742185288005406,
+      "epochs_run": 15,
+      "fold": 3,
+      "train_start": "2007-11-30",
+      "train_end": "2012-09-05",
+      "test_start": "2012-09-06",
+      "test_end": "2013-09-09",
+      "n_fit": 1021,
+      "n_val": 180,
+      "n_test": 252,
+      "test_target_outside_train_range": 0.0
+    },
+    {
+      "best_epoch": 2,
+      "best_val_loss": 0.7634348002595639,
+      "epochs_run": 12,
+      "fold": 4,
+      "train_start": "2007-11-30",
+      "train_end": "2013-09-09",
+      "test_start": "2013-09-10",
+      "test_end": "2014-09-09",
+      "n_fit": 1235,
+      "n_val": 218,
+      "n_test": 252,
+      "test_target_outside_train_range": 0.0
+    },
+    {
+      "best_epoch": 28,
+      "best_val_loss": 0.37707870826125145,
+      "epochs_run": 38,
+      "fold": 5,
+      "train_start": "2007-11-30",
+      "train_end": "2014-09-09",
+      "test_start": "2014-09-10",
+      "test_end": "2015-09-09",
+      "n_fit": 1449,
+      "n_val": 256,
+      "n_test": 252,
+      "test_target_outside_train_range": 0.0
+    },
+    {
+      "best_epoch": 3,
+      "best_val_loss": 0.5209730101280472,
+      "epochs_run": 13,
+      "fold": 6,
+      "train_start": "2007-11-30",
+      "train_end": "2015-09-09",
+      "test_start": "2015-09-10",
+      "test_end": "2016-09-08",
+      "n_fit": 1663,
+      "n_val": 294,
+      "n_test": 252,
+      "test_target_outside_train_range": 0.0
+    },
+    {
+      "best_epoch": 2,
+      "best_val_loss": 0.6180087168591261,
+      "epochs_run": 12,
+      "fold": 7,
+      "train_start": "2007-11-30",
+      "train_end": "2016-09-08",
+      "test_start": "2016-09-09",
+      "test_end": "2017-09-08",
+      "n_fit": 1878,
+      "n_val": 331,
+      "n_test": 252,
+      "test_target_outside_train_range": 0.0
+    },
+    {
+      "best_epoch": 7,
+      "best_val_loss": 0.34024807310039756,
+      "epochs_run": 17,
+      "fold": 8,
+      "train_start": "2007-11-30",
+      "train_end": "2017-09-08",
+      "test_start": "2017-09-11",
+      "test_end": "2018-09-10",
+      "n_fit": 2092,
+      "n_val": 369,
+      "n_test": 252,
+      "test_target_outside_train_range": 0.0
+    },
+    {
+      "best_epoch": 9,
+      "best_val_loss": 0.3990631821846786,
+      "epochs_run": 19,
+      "fold": 9,
+      "train_start": "2007-11-30",
+      "train_end": "2018-09-10",
+      "test_start": "2018-09-11",
+      "test_end": "2019-09-11",
+      "n_fit": 2306,
+      "n_val": 407,
+      "n_test": 252,
+      "test_target_outside_train_range": 0.0
+    },
+    {
+      "best_epoch": 1,
+      "best_val_loss": 0.8225788914755489,
+      "epochs_run": 11,
+      "fold": 10,
+      "train_start": "2007-11-30",
+      "train_end": "2019-09-11",
+      "test_start": "2019-09-12",
+      "test_end": "2020-09-10",
+      "n_fit": 2520,
+      "n_val": 445,
+      "n_test": 252,
+      "test_target_outside_train_range": 0.0
+    },
+    {
+      "best_epoch": 2,
+      "best_val_loss": 1.5924925118006041,
+      "epochs_run": 12,
+      "fold": 11,
+      "train_start": "2007-11-30",
+      "train_end": "2020-09-10",
+      "test_start": "2020-09-11",
+      "test_end": "2021-09-10",
+      "n_fit": 2734,
+      "n_val": 483,
+      "n_test": 252,
+      "test_target_outside_train_range": 0.0
+    },
+    {
+      "best_epoch": 2,
+      "best_val_loss": 1.419161516886491,
+      "epochs_run": 12,
+      "fold": 12,
+      "train_start": "2007-11-30",
+      "train_end": "2021-09-10",
+      "test_start": "2021-09-13",
+      "test_end": "2022-09-12",
+      "n_fit": 2949,
+      "n_val": 520,
+      "n_test": 252,
+      "test_target_outside_train_range": 0.0
+    },
+    {
+      "best_epoch": 14,
+      "best_val_loss": 1.0021995273969506,
+      "epochs_run": 24,
+      "fold": 13,
+      "train_start": "2007-11-30",
+      "train_end": "2022-09-12",
+      "test_start": "2022-09-13",
+      "test_end": "2023-09-13",
+      "n_fit": 3163,
+      "n_val": 558,
+      "n_test": 252,
+      "test_target_outside_train_range": 0.0
+    },
+    {
+      "best_epoch": 10,
+      "best_val_loss": 0.7888874463586999,
+      "epochs_run": 20,
+      "fold": 14,
+      "train_start": "2007-11-30",
+      "train_end": "2023-09-13",
+      "test_start": "2023-09-14",
+      "test_end": "2024-09-13",
+      "n_fit": 3377,
+      "n_val": 596,
+      "n_test": 252,
+      "test_target_outside_train_range": 0.0
+    },
+    {
+      "best_epoch": 11,
+      "best_val_loss": 0.7642648409969799,
+      "epochs_run": 21,
+      "fold": 15,
+      "train_start": "2007-11-30",
+      "train_end": "2024-09-13",
+      "test_start": "2024-09-16",
+      "test_end": "2025-09-17",
+      "n_fit": 3591,
+      "n_val": 634,
+      "n_test": 252,
+      "test_target_outside_train_range": 0.0
+    },
+    {
+      "best_epoch": 4,
+      "best_val_loss": 0.6599697300365993,
+      "epochs_run": 14,
+      "fold": 16,
+      "train_start": "2007-11-30",
+      "train_end": "2025-09-17",
+      "test_start": "2025-09-18",
+      "test_end": "2026-09-18",
+      "n_fit": 3805,
+      "n_val": 672,
+      "n_test": 252,
+      "test_target_outside_train_range": 0.0
+    },
+    {
+      "best_epoch": 3,
+      "best_val_loss": 0.7430596102149933,
+      "epochs_run": 13,
+      "fold": 17,
+      "train_start": "2007-11-30",
+      "train_end": "2026-09-18",
+      "test_start": "2026-09-21",
+      "test_end": "2026-11-17",
+      "n_fit": 4020,
+      "n_val": 709,
+      "n_test": 42,
+      "test_target_outside_train_range": 0.0
+    }
+  ],
+  "data": {
+    "source": "yfinance period=\"20y\"",
+    "coverage": {
+      "rows": 5030,
+      "start": "2006-11-20",
+      "end": "2026-11-18",
+      "span_years": 19.99,
+      "covers_2008": true,
+      "covers_2020": true
+    },
+    "features": {
+      "raw_rows": 5030,
+      "final_row_dropped": 1,
+      "warmup_rows_dropped": 199,
+      "usable_rows": 4830,
+      "first_usable_date": "2007-09-07",
+      "last_usable_date": "2026-11-17"
+    },
+    "feature_cols": [
+      "Open",
+      "High",
+      "Low",
+      "Close",
+      "Volume",
+      "SMA_50",
+      "SMA_200",
+      "MACD",
+      "MACD_Signal",
+      "Rolling_Std_20",
+      "Month_sin",
+      "Month_cos"
+    ]
+  },
+  "hyperparameters": {
+    "SEED": 42,
+    "WINDOW": 60,
+    "HIDDEN": 64,
+    "NUM_LAYERS": 2,
+    "DROPOUT": 0.2,
+    "BATCH": 64,
+    "LR": 0.001,
+    "EPOCHS": 80,
+    "PATIENCE": 10,
+    "GRAD_CLIP": 1.0,
+    "OPTIMIZER": "Adam",
+    "LOSS": "MSE",
+    "INITIAL_TRAIN_DAYS": 756,
+    "RETRAIN_EVERY": 252,
+    "VAL_FRACTION": 0.15,
+    "SCALING": "window_relative"
+  },
+  "assumptions": {
+    "initial_capital_inr": 100000,
+    "cost_per_side": 0.0005,
+    "rf_annual": 0.0,
+    "fx": "FX-neutral: ₹ equity = INITIAL_CAPITAL × cumulative growth of a fractional-share USD position; USD/INR changes ignored.",
+    "position_rule": "long next day if pred > close × (1 + 2×cost), else flat"
+  },
+  "limitations": "Limitations: (1) single asset — AAPL only, so nothing here generalises across stocks or sectors; (2) survivorship/outlier bias — AAPL is one of the best-performing large caps of the last 20 years, so Buy & Hold is an unusually hard benchmark and any long-only result is flattered by the asset choice; (3) regime sparsity — only a handful of macro crashes exist in 20 years, and 2008 falls in the in-sample training region, so crash conclusions rest on very few events; (4) 1-day-ahead price-level targets sit very close to persistence (tomorrow ≈ today), so low RMSE/MAPE mostly reflects that, not skill — compare against the persistence row; (5) the backtest ignores taxes, FX (USD/INR held constant), slippage beyond the flat per-side cost, and market impact."
+}

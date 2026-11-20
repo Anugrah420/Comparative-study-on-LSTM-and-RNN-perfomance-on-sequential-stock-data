@@ -29,7 +29,7 @@ FX_NOTE = (f"FX assumption: {C.TICKER} trades in USD. Strategy returns are compo
            "shares and equity is expressed in ₹ as INITIAL_CAPITAL × cumulative growth factor, "
            "i.e. USD/INR is held constant over the test window.")
 
-LIMITATIONS = """LIMITATIONS
+LIMITATIONS = f"""LIMITATIONS
  • Sample size: Yahoo caps 5-minute history at ~60 days, so the test set is only ~9 trading days;
    every metric (Sharpe, PF, gate correlations) has wide error bars. Results also change with the
    download date — reuse the cached raw CSV to pair the RNN and LSTM runs exactly.
@@ -37,8 +37,11 @@ LIMITATIONS = """LIMITATIONS
    instruments or periods. The ETF is not the index itself (tiny tracking difference).
  • Overfitting risk: ~1–1.5k training windows vs ~50k LSTM parameters; early stopping on a
    ~9-day validation set is itself noisy. A single seed is reported.
- • Target is the next-bar log return (converted back to a price for RMSE/MAPE). Price-level RMSE
-   is dominated by the current price, so always compare against the persistence baseline.
+ • Target is the {C.HORIZON}-bar ({C.HORIZON*C.BAR_MINUTES}-minute) ahead log return (converted back to a
+   price for RMSE/MAPE), not the very next bar — this was changed because a 1-bar-ahead target is
+   almost pure noise relative to the 0.1% round-trip cost and the model just learns "predict no
+   change". Price-level RMSE is dominated by the current price, so always compare against the
+   persistence baseline.
  • Costs: 0.05 % per side, no slippage, no borrow fees, fills at bar close. Results are highly
    sensitive to this; re-run with COST_PER_SIDE = 0.0010 to stress-test.
  • FX held constant (see note); fractional shares and 100 % equity per trade are idealisations.

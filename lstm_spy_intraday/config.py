@@ -21,6 +21,13 @@ TICKER_LABEL = "S&P 500 (SPY)"
 INTERVAL = "5m"
 PERIOD = "60d"                  # Yahoo's maximum look-back for 5m bars
 BAR_MINUTES = 5
+
+# Prediction horizon: predict price HORIZON bars ahead, not just the next bar.
+# At 1 bar (5 min) ahead, moves are almost pure noise relative to the 0.1%
+# round-trip cost, so the model (correctly) learns to predict "no change" and
+# never trades. 6 bars = 30 minutes ahead gives moves large enough, on
+# average, to clear the cost threshold while staying an intraday horizon.
+HORIZON = 6
 MARKET_TZ = "America/New_York"
 SESSION_START = "09:30"         # first regular-session bar (bar START time)
 SESSION_LAST_BAR = "15:55"      # last bar starts 15:55 and closes at 16:00
@@ -54,7 +61,7 @@ FEATURES = [
     "EMA_9", "VWAP", "RSI_14", "ATR_14",
     "Minute_of_Day_sin", "Minute_of_Day_cos",
 ]
-TARGET = "Close"                # next candle's Close (modelled as log return, reported in USD)
+TARGET = "Close"                # Close HORIZON bars ahead (modelled as log return, reported in USD)
 VOLUME_FEATURE_IDX = FEATURES.index("Volume")
 
 # ── Metrics ───────────────────────────────────────────────────────────────

@@ -189,7 +189,7 @@ def model_inputs(df: pd.DataFrame) -> np.ndarray:
         "Open": np.log(df["Open"] / c),
         "High": np.log(df["High"] / c),
         "Low": np.log(df["Low"] / c),
-        "Close": np.log(c / prev).fillna(0.0),             # 1-bar log return
+        "Close": np.log(c / prev).fillna(0.0),             # 1-bar log return (model input only)
         "Volume": np.log1p(df["Volume"]),
         "EMA_9": np.log(df["EMA_9"] / c),
         "VWAP": np.log(df["VWAP"] / c),
@@ -201,10 +201,11 @@ def model_inputs(df: pd.DataFrame) -> np.ndarray:
     return np.column_stack([np.asarray(cols[f], float) for f in C.FEATURES])
 
 
-def next_log_return(df: pd.DataFrame) -> np.ndarray:
-    """Target: log(Close_{t+1} / Close_t) within the session (NaN on last bar)."""
+def next_log_return(df: pd.DataFrame, horizon: int = C.HORIZON) -> np.ndarray:
+    """Target: log(Close_{t+horizon} / Close_t) within the session (NaN near
+    session end, where fewer than `horizon` bars remain)."""
     c = df["Close"]
-    return np.log(c.groupby(df["session"]).shift(-1) / c).to_numpy(float)
+    return np.log(c.groupby(df["session"]).shift(-horizon) / c).to_numpy(float)
 
 
 def to_price(scalers: "Scalers", y_scaled, close_t) -> np.ndarray:
@@ -227,39 +228,43 @@ def fit_scalers(feat: pd.DataFrame, train_days) -> Scalers:
 @dataclass
 class WindowSet:
     X: np.ndarray        # [N, WINDOW, F] scaled inputs
-    y: np.ndarray        # [N] scaled next-bar log return
+    y: np.ndarray        # [N] scaled HORIZON-bars-ahead log return
     meta: pd.DataFrame   # one row per sample (bar t = last input bar)
 
 
-def make_windows(feat: pd.DataFrame, scalers: Scalers, days, window: int = C.WINDOW) -> WindowSet:
+def make_windows(feat: pd.DataFrame, scalers: Scalers, days, window: int = C.WINDOW,
+                 horizon: int = C.HORIZON) -> WindowSet:
     sub = feat[feat["session"].isin(days)]
     Xs = scalers.x.transform(model_inputs(sub)).astype(np.float32)
-    y_raw = next_log_return(sub)
+    y_raw = next_log_return(sub, horizon)
     ys = scalers.y.transform(np.nan_to_num(y_raw).reshape(-1, 1)).ravel().astype(np.float32)
     ts = sub.index
     sess = sub["session"].to_numpy()
     feat_pos = feat.index.get_indexer(ts)            # positions in the full frame
-    span_ok = pd.Timedelta(minutes=C.BAR_MINUTES * (window - 1))
-    step_ok = pd.Timedelta(minutes=C.BAR_MINUTES)
+    # One check covers the whole stretch (input window + horizon): if every
+    # bar from s to e+horizon is present with no gap, the span equals exactly
+    # that many 5-minute steps. Any missing bar makes the span longer.
+    full_span_ok = pd.Timedelta(minutes=C.BAR_MINUTES * (window - 1 + horizon))
 
     X_out, y_out, ends, tgts = [], [], [], []
     for d in days:
         idx = np.flatnonzero(sess == d)
-        if len(idx) < window + 1:
+        if len(idx) < window + horizon:
             continue                                  # e.g. early-close half days
-        for e in range(window - 1, len(idx) - 1):
+        for e in range(window - 1, len(idx) - horizon):
             s = e - window + 1
-            if ts[idx[e]] - ts[idx[s]] != span_ok or ts[idx[e + 1]] - ts[idx[e]] != step_ok:
-                continue                              # missing bar inside window
+            t = e + horizon
+            if ts[idx[t]] - ts[idx[s]] != full_span_ok:
+                continue                              # missing bar inside window or horizon
             X_out.append(Xs[idx[s:e + 1]])
-            y_out.append(ys[idx[e + 1]])
+            y_out.append(ys[idx[e]])
             ends.append(idx[e])
-            tgts.append(idx[e + 1])
+            tgts.append(idx[t])
 
     ends, tgts = np.array(ends, int), np.array(tgts, int)
     meta = pd.DataFrame({
         "timestamp": ts[ends],                        # bar t (decision bar)
-        "target_timestamp": ts[tgts],                 # bar t+1
+        "target_timestamp": ts[tgts],                 # bar t+HORIZON
         "session": sess[ends],
         "close_t": sub["Close"].to_numpy()[ends],
         "actual_next": sub["Close"].to_numpy()[tgts],
@@ -289,7 +294,7 @@ def assert_no_leakage(clean: pd.DataFrame, feat: pd.DataFrame, splits: dict, sca
     assert np.allclose(a, b, rtol=1e-9, atol=1e-9), "Indicator look-ahead detected!"
 
     assert scalers.x.n_samples_seen_ == len(train_rows), "X scaler saw non-train rows!"
-    n_y = int(np.isfinite(next_log_return(train_rows)).sum())
+    n_y = int(np.isfinite(next_log_return(train_rows, C.HORIZON)).sum())
     assert scalers.y.n_samples_seen_ == n_y, "y scaler saw non-train rows!"
     assert scalers.fit_last_ts < first_val < first_test, "Scaler fit window overlaps val/test!"
     print("[leakage] OK — indicators causal; scalers fit on TRAIN only "

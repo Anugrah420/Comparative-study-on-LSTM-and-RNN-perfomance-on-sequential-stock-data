@@ -1,0 +1,1108 @@
+{
+  "experiment": "longterm_daily",
+  "model": "LSTM (v5 position-sizing)",
+  "ticker": "SPY",
+  "config": {
+    "SEED": 42,
+    "WINDOW": 60,
+    "HIDDEN": 32,
+    "NUM_LAYERS": 2,
+    "DROPOUT": 0.3,
+    "BATCH": 64,
+    "LR": 0.0003,
+    "EPOCHS": 80,
+    "PATIENCE": 10,
+    "GRAD_CLIP": 1.0,
+    "INITIAL_CAPITAL": 100000,
+    "COST_PER_SIDE": 0.0005,
+    "INITIAL_TRAIN_YEARS": 3,
+    "RETRAIN_EVERY": 252,
+    "N_SEEDS": 3,
+    "LOSS": "huber",
+    "RISK_KAPPA": 1.0,
+    "REBAL_BAND": 0.1,
+    "AUX_WEIGHT": 1.0,
+    "USE_EXOG": true
+  },
+  "features": [
+    "Ret_1d",
+    "Ret_5d",
+    "Ret_21d",
+    "Ret_63d",
+    "Ret_126d",
+    "Mom_12_1",
+    "DD_252",
+    "Close_SMA50",
+    "Close_SMA200",
+    "SMA50_SMA200",
+    "SMA200_Slope",
+    "Std_20",
+    "Std_60",
+    "Vol_Ratio",
+    "Down_Semi_20",
+    "Park_20",
+    "HL_Range",
+    "Gap",
+    "Intraday",
+    "Vol_Rel",
+    "RSI_14",
+    "BB_Z",
+    "MACD_N",
+    "MACD_Sig_N",
+    "Month_sin",
+    "Month_cos",
+    "VIX_Log",
+    "VIX_Chg5",
+    "VIX_Rel",
+    "VRP",
+    "TNX_Chg21",
+    "TNX_Chg63",
+    "Credit_Mom21",
+    "Credit_Rel",
+    "TLT_Ret21",
+    "GLD_Ret21"
+  ],
+  "feature_groups": {
+    "trend200": [
+      "Close_SMA200",
+      "SMA200_Slope",
+      "SMA50_SMA200"
+    ],
+    "momentum": [
+      "Ret_5d",
+      "Ret_21d",
+      "Ret_63d",
+      "Ret_126d",
+      "Mom_12_1",
+      "DD_252"
+    ],
+    "vol_regime": [
+      "Std_20",
+      "Std_60",
+      "Vol_Ratio",
+      "Down_Semi_20",
+      "Park_20",
+      "HL_Range"
+    ],
+    "vix": [
+      "VIX_Log",
+      "VIX_Chg5",
+      "VIX_Rel",
+      "VRP"
+    ],
+    "macro_credit": [
+      "TNX_Chg21",
+      "TNX_Chg63",
+      "Credit_Mom21",
+      "Credit_Rel",
+      "TLT_Ret21",
+      "GLD_Ret21"
+    ]
+  },
+  "version": "v5: stationary multi-source features, utility-trained exposure head + aux return head, deadband, benchmarks, bootstrap",
+  "n_params": {
+    "lstm": 17474,
+    "simple_rnn": 4385
+  },
+  "average_exposure": 0.904960890171363,
+  "in_sample_window": [
+    "2007-11-21",
+    "2010-11-19"
+  ],
+  "oos_window": [
+    "2010-11-22",
+    "2026-11-18"
+  ],
+  "metrics": {
+    "strategy": {
+      "Total ROI (%)": 533.6360174659147,
+      "CAGR (%)": 12.263762426440184,
+      "Net Profit (INR)": 533636.0174659147,
+      "Profit Factor": 1.1510660642500345,
+      "Total Trades": 18,
+      "Avg Exposure (%)": 90.4960890171363,
+      "MDD (%)": -31.179679750948974,
+      "Calmar": 0.3933254775032424,
+      "VaR95 (%)": -1.4734001981850673,
+      "VaR95 (INR)": -1473.4001981850672,
+      "Sharpe": 0.8278819016029874,
+      "Sortino": 1.1627677796684732,
+      "Directional Accuracy (%)": 52.55547245076041,
+      "RMSE (USD)": 3.6012192177316305,
+      "MAPE (%)": 0.7136029286738154
+    },
+    "buy_hold": {
+      "Total ROI (%)": 687.9466578937986,
+      "CAGR (%)": 13.807363521296633,
+      "Net Profit (INR)": 687946.6578937987,
+      "Profit Factor": 1.1558622381447823,
+      "Total Trades": 1,
+      "Avg Exposure (%)": 100.0,
+      "MDD (%)": -33.717263786002874,
+      "Calmar": 0.40950427083672536,
+      "VaR95 (%)": -1.6219475954490443,
+      "VaR95 (INR)": -1621.9475954490442,
+      "Sharpe": 0.8468968568185856,
+      "Sortino": 1.192114068326945
+    },
+    "exposure_matched_bh": {
+      "Total ROI (%)": 561.2367713887743,
+      "CAGR (%)": 12.564071129866816,
+      "Net Profit (INR)": 561236.7713887743,
+      "Profit Factor": 1.1577545455702432,
+      "Total Trades": null,
+      "Avg Exposure (%)": 90.4960890171363,
+      "MDD (%)": -30.894716625251238,
+      "Calmar": 0.40667377798823373,
+      "VaR95 (%)": -1.4677991397888688,
+      "VaR95 (INR)": -1467.7991397888688,
+      "Sharpe": 0.8472987420239451,
+      "Sortino": 1.1927223492650376
+    },
+    "rules": {
+      "SMA200 filter": {
+        "Total ROI (%)": 351.5684893208368,
+        "CAGR (%)": 9.906143156634982,
+        "Net Profit (INR)": 351568.4893208368,
+        "Profit Factor": 1.1592882207351953,
+        "Total Trades": 79,
+        "Avg Exposure (%)": 85.00745897563401,
+        "MDD (%)": -20.6847236594515,
+        "Calmar": 0.4789110707847699,
+        "VaR95 (%)": -1.2631169482520281,
+        "VaR95 (INR)": -1263.1169482520281,
+        "Sharpe": 0.8586733424708517,
+        "Sortino": 1.1775445556454267
+      },
+      "Vol-target 10%": {
+        "Total ROI (%)": 303.3632257143219,
+        "CAGR (%)": 9.131504181521489,
+        "Net Profit (INR)": 303363.2257143219,
+        "Profit Factor": 1.154435678913902,
+        "Total Trades": 283,
+        "Avg Exposure (%)": 76.36404629592262,
+        "MDD (%)": -13.228356705356815,
+        "Calmar": 0.6902976979615081,
+        "VaR95 (%)": -1.09418254911918,
+        "VaR95 (INR)": -1094.1825491191798,
+        "Sharpe": 0.8994514746803476,
+        "Sortino": 1.2411950182913254
+      }
+    },
+    "persistence": {
+      "Directional Accuracy (%)": null,
+      "RMSE (USD)": 3.586658810606663,
+      "MAPE (%)": 0.7116304469865964
+    },
+    "skill": {
+      "IC_pearson": -0.009047416909406351,
+      "IC_spearman": 0.0030864414893955927,
+      "corr_exposure_vs_next_ret": -0.026378604498941596,
+      "base_rate_up_days_%": 55.096966683242165,
+      "pred_up_share_%": 81.15365489806067,
+      "avg_daily_ret_when_exposure>0.5_bps": 5.709960579825101,
+      "avg_daily_ret_when_exposure<=0.5_bps": null
+    },
+    "median_best_epoch": 3.0
+  },
+  "sharpe_diff_vs_buy_hold_bootstrap": {
+    "point": -0.01901495521559826,
+    "ci_lo": -0.038240222975618174,
+    "ci_hi": -0.002144324735172154,
+    "p_diff_le_0": 0.9865
+  },
+  "scorecard": {
+    "label": "DOES NOT BEAT BUY & HOLD",
+    "text": "SCORECARD: DOES NOT BEAT BUY & HOLD. Sharpe 0.83 vs B&H 0.85 (difference -0.02, 95% block-bootstrap CI [-0.04, -0.00], P(diff<=0)=0.99); MDD -31.18% vs -33.72%; Calmar 0.39 vs 0.41; CAGR 12.26% vs 13.81% at 90% average exposure (a long-only strategy capped at 100% exposure will normally earn LESS total return than Buy & Hold; the question is risk-adjusted return). Best simple rule: Vol-target 10% (Sharpe 0.90, MDD -13.23%) -> the LSTM does NOT beat it, so it adds nothing over that rule.",
+    "beats_sharpe": false,
+    "significant": false,
+    "beats_dd": false,
+    "beats_rules": false
+  },
+  "folds": [
+    {
+      "fold": 0,
+      "train_end": "2010-11-19",
+      "oos_start": "2010-11-22",
+      "oos_end": "2011-11-18",
+      "n_train": 592,
+      "n_val": 105,
+      "lam": 0.01,
+      "mean_exposure": 0.9100650548934937,
+      "best_epochs": [
+        1,
+        17,
+        1
+      ],
+      "val_loss": [
+        0.0708,
+        0.071,
+        0.071
+      ]
+    },
+    {
+      "fold": 1,
+      "train_end": "2011-11-18",
+      "oos_start": "2011-11-21",
+      "oos_end": "2012-11-21",
+      "n_train": 807,
+      "n_val": 142,
+      "lam": 0.014261158073472788,
+      "mean_exposure": 0.9193708896636963,
+      "best_epochs": [
+        26,
+        27,
+        1
+      ],
+      "val_loss": [
+        0.3875,
+        0.3958,
+        0.3988
+      ]
+    },
+    {
+      "fold": 2,
+      "train_end": "2012-11-21",
+      "oos_start": "2012-11-23",
+      "oos_end": "2013-11-21",
+      "n_train": 1021,
+      "n_val": 180,
+      "lam": 0.013726215686797594,
+      "mean_exposure": 0.9151245355606079,
+      "best_epochs": [
+        2,
+        6,
+        1
+      ],
+      "val_loss": [
+        0.1008,
+        0.0998,
+        0.099
+      ]
+    },
+    {
+      "fold": 3,
+      "train_end": "2013-11-21",
+      "oos_start": "2013-11-22",
+      "oos_end": "2014-11-21",
+      "n_train": 1235,
+      "n_val": 218,
+      "lam": 0.017548786100707026,
+      "mean_exposure": 0.9152662754058838,
+      "best_epochs": [
+        1,
+        8,
+        5
+      ],
+      "val_loss": [
+        0.0336,
+        0.0347,
+        0.0338
+      ]
+    },
+    {
+      "fold": 4,
+      "train_end": "2014-11-21",
+      "oos_start": "2014-11-24",
+      "oos_end": "2015-11-23",
+      "n_train": 1449,
+      "n_val": 256,
+      "lam": 0.025704040652415636,
+      "mean_exposure": 0.9099341630935669,
+      "best_epochs": [
+        1,
+        5,
+        4
+      ],
+      "val_loss": [
+        0.0552,
+        0.0556,
+        0.0547
+      ]
+    },
+    {
+      "fold": 5,
+      "train_end": "2015-11-23",
+      "oos_start": "2015-11-24",
+      "oos_end": "2016-11-22",
+      "n_train": 1663,
+      "n_val": 294,
+      "lam": 0.028364839206513184,
+      "mean_exposure": 0.9107223153114319,
+      "best_epochs": [
+        7,
+        3,
+        4
+      ],
+      "val_loss": [
+        0.1712,
+        0.1715,
+        0.1697
+      ]
+    },
+    {
+      "fold": 6,
+      "train_end": "2016-11-22",
+      "oos_start": "2016-11-23",
+      "oos_end": "2017-11-22",
+      "n_train": 1878,
+      "n_val": 331,
+      "lam": 0.02945440148869872,
+      "mean_exposure": 0.9154453873634338,
+      "best_epochs": [
+        3,
+        1,
+        1
+      ],
+      "val_loss": [
+        0.2044,
+        0.2025,
+        0.2018
+      ]
+    },
+    {
+      "fold": 7,
+      "train_end": "2017-11-22",
+      "oos_start": "2017-11-24",
+      "oos_end": "2018-11-23",
+      "n_train": 2092,
+      "n_val": 369,
+      "lam": 0.028448840169675756,
+      "mean_exposure": 0.9125410914421082,
+      "best_epochs": [
+        3,
+        3,
+        1
+      ],
+      "val_loss": [
+        0.0327,
+        0.0336,
+        0.0322
+      ]
+    },
+    {
+      "fold": 8,
+      "train_end": "2018-11-23",
+      "oos_start": "2018-11-26",
+      "oos_end": "2019-11-25",
+      "n_train": 2306,
+      "n_val": 407,
+      "lam": 0.030917772894689995,
+      "mean_exposure": 0.908301830291748,
+      "best_epochs": [
+        5,
+        3,
+        1
+      ],
+      "val_loss": [
+        0.1255,
+        0.127,
+        0.1248
+      ]
+    },
+    {
+      "fold": 9,
+      "train_end": "2019-11-25",
+      "oos_start": "2019-11-26",
+      "oos_end": "2020-11-24",
+      "n_train": 2520,
+      "n_val": 445,
+      "lam": 0.034212820338500406,
+      "mean_exposure": 0.9050492644309998,
+      "best_epochs": [
+        10,
+        7,
+        4
+      ],
+      "val_loss": [
+        0.1978,
+        0.1984,
+        0.1985
+      ]
+    },
+    {
+      "fold": 10,
+      "train_end": "2020-11-24",
+      "oos_start": "2020-11-25",
+      "oos_end": "2021-11-24",
+      "n_train": 2734,
+      "n_val": 483,
+      "lam": 0.030393119700306476,
+      "mean_exposure": 0.9167647957801819,
+      "best_epochs": [
+        3,
+        4,
+        1
+      ],
+      "val_loss": [
+        0.3908,
+        0.3923,
+        0.3899
+      ]
+    },
+    {
+      "fold": 11,
+      "train_end": "2021-11-24",
+      "oos_start": "2021-11-26",
+      "oos_end": "2022-11-25",
+      "n_train": 2949,
+      "n_val": 520,
+      "lam": 0.03521702333483678,
+      "mean_exposure": 0.8970971703529358,
+      "best_epochs": [
+        4,
+        3,
+        1
+      ],
+      "val_loss": [
+        0.3774,
+        0.3781,
+        0.3754
+      ]
+    },
+    {
+      "fold": 12,
+      "train_end": "2022-11-25",
+      "oos_start": "2022-11-28",
+      "oos_end": "2023-11-28",
+      "n_train": 3163,
+      "n_val": 558,
+      "lam": 0.0342470718689929,
+      "mean_exposure": 0.8507646322250366,
+      "best_epochs": [
+        27,
+        9,
+        9
+      ],
+      "val_loss": [
+        0.3047,
+        0.3183,
+        0.3185
+      ]
+    },
+    {
+      "fold": 13,
+      "train_end": "2023-11-28",
+      "oos_start": "2023-11-29",
+      "oos_end": "2024-11-27",
+      "n_train": 3377,
+      "n_val": 596,
+      "lam": 0.03862630272857293,
+      "mean_exposure": 0.9139514565467834,
+      "best_epochs": [
+        2,
+        2,
+        3
+      ],
+      "val_loss": [
+        0.3359,
+        0.3346,
+        0.3351
+      ]
+    },
+    {
+      "fold": 14,
+      "train_end": "2024-11-27",
+      "oos_start": "2024-11-29",
+      "oos_end": "2025-12-02",
+      "n_train": 3591,
+      "n_val": 634,
+      "lam": 0.03558202722945111,
+      "mean_exposure": 0.8741539716720581,
+      "best_epochs": [
+        1,
+        7,
+        26
+      ],
+      "val_loss": [
+        0.223,
+        0.2221,
+        0.2143
+      ]
+    },
+    {
+      "fold": 15,
+      "train_end": "2025-12-02",
+      "oos_start": "2025-12-03",
+      "oos_end": "2026-11-18",
+      "n_train": 3805,
+      "n_val": 672,
+      "lam": 0.03452403879209451,
+      "mean_exposure": 0.9117501974105835,
+      "best_epochs": [
+        2,
+        3,
+        1
+      ],
+      "val_loss": [
+        0.1522,
+        0.1523,
+        0.1512
+      ]
+    }
+  ],
+  "crash_windows": [
+    {
+      "window": "2008 GFC",
+      "peak": "2007-12-10",
+      "trough": "2009-03-09",
+      "B&H full-DD_%": -53.89296396049544,
+      "oos_days": 0,
+      "note": "in-sample / too few OOS days - not scored",
+      "LSTM_ret_%": null,
+      "LSTM_MDD_%": null,
+      "LSTM_avg_w_%": null,
+      "LSTM_days_flat": null,
+      "LSTM_flat_%": null,
+      "BH_ret_%": null,
+      "BH_MDD_%": null,
+      "EM_ret_%": null,
+      "EM_MDD_%": null
+    },
+    {
+      "window": "DD Sep18-Dec18",
+      "peak": "2018-09-20",
+      "trough": "2018-12-24",
+      "B&H full-DD_%": -19.348910297514298,
+      "oos_days": 66,
+      "note": null,
+      "LSTM_ret_%": -17.204823303772443,
+      "LSTM_MDD_%": -17.813842264185986,
+      "LSTM_avg_w_%": 91.44360423088074,
+      "LSTM_days_flat": 0.0,
+      "LSTM_flat_%": 0.0,
+      "BH_ret_%": -18.695344915327695,
+      "BH_MDD_%": -19.348910297514244,
+      "EM_ret_%": -17.038535367720197,
+      "EM_MDD_%": -17.64250035770314
+    },
+    {
+      "window": "2020 COVID",
+      "peak": "2020-02-19",
+      "trough": "2020-03-23",
+      "B&H full-DD_%": -33.71726378600284,
+      "oos_days": 24,
+      "note": null,
+      "LSTM_ret_%": -30.87878179802712,
+      "LSTM_MDD_%": -31.179679750948964,
+      "LSTM_avg_w_%": 91.44360423088074,
+      "LSTM_days_flat": 0.0,
+      "LSTM_flat_%": 0.0,
+      "BH_ret_%": -33.400343793663204,
+      "BH_MDD_%": -33.71726378600284,
+      "EM_ret_%": -30.59570348679165,
+      "EM_MDD_%": -30.894716625251263
+    },
+    {
+      "window": "2022 bear",
+      "peak": "2022-01-03",
+      "trough": "2022-10-12",
+      "B&H full-DD_%": -24.496393992794452,
+      "oos_days": 196,
+      "note": null,
+      "LSTM_ret_%": -22.10983944160273,
+      "LSTM_MDD_%": -22.520074964382108,
+      "LSTM_avg_w_%": 91.44360423088074,
+      "LSTM_days_flat": 0.0,
+      "LSTM_flat_%": 0.0,
+      "BH_ret_%": -24.059215860558,
+      "BH_MDD_%": -24.496393992794452,
+      "EM_ret_%": -21.892538998516407,
+      "EM_MDD_%": -22.299678614161966
+    },
+    {
+      "window": "DD Feb25-Apr25",
+      "peak": "2025-02-19",
+      "trough": "2025-04-08",
+      "B&H full-DD_%": -18.75523416145789,
+      "oos_days": 35,
+      "note": null,
+      "LSTM_ret_%": -16.903784579530836,
+      "LSTM_MDD_%": -17.08032286058616,
+      "LSTM_avg_w_%": 90.40588736534119,
+      "LSTM_days_flat": 0.0,
+      "LSTM_flat_%": 0.0,
+      "BH_ret_%": -18.563905528210356,
+      "BH_MDD_%": -18.755234161457867,
+      "EM_ret_%": -16.91950899583975,
+      "EM_MDD_%": -17.096189601924593
+    }
+  ],
+  "gate_analysis": {
+    "pooled": {
+      "forget_top vs Close/SMA200-1": {
+        "pearson": 0.29828398993551564,
+        "spearman": 0.2684524602783436
+      },
+      "forget_l1 vs Close/SMA200-1": {
+        "pearson": 0.044821591081401206,
+        "spearman": -0.06642394547153217
+      },
+      "forget_top vs SMA200 slope(20d)": {
+        "pearson": 0.02445001818636897,
+        "spearman": 0.05275838479716504
+      },
+      "forget_l1 vs SMA200 slope(20d)": {
+        "pearson": 0.14150497254925484,
+        "spearman": 0.1410106160557176
+      },
+      "forget_top vs [control] Close/SMA50-1": {
+        "pearson": 0.40451816998220974,
+        "spearman": 0.4478610057282052
+      },
+      "forget_l1 vs [control] Close/SMA50-1": {
+        "pearson": -0.08698169994419234,
+        "spearman": -0.3159235443845866
+      },
+      "forget_top vs [control] 21d return": {
+        "pearson": 0.342430229835197,
+        "spearman": 0.384784093964476
+      },
+      "forget_l1 vs [control] 21d return": {
+        "pearson": -0.11393076302481098,
+        "spearman": -0.32067819311133294
+      }
+    },
+    "within_fold": {
+      "forget_top vs Close/SMA200-1": 0.3830449777014339,
+      "forget_l1 vs Close/SMA200-1": -0.03300046748906539,
+      "forget_top vs SMA200 slope(20d)": 0.10433436148767537,
+      "forget_l1 vs SMA200 slope(20d)": 0.11471570152559793,
+      "forget_top vs [control] Close/SMA50-1": 0.47886568755127373,
+      "forget_l1 vs [control] Close/SMA50-1": -0.128035389806461,
+      "forget_top vs [control] 21d return": 0.4150638394196663,
+      "forget_l1 vs [control] 21d return": -0.14626825502899932
+    },
+    "first_diff": {
+      "forget_top vs Close/SMA200-1": 0.47461974637937354,
+      "forget_l1 vs Close/SMA200-1": 0.10150326275552515,
+      "forget_top vs SMA200 slope(20d)": 0.04643887023318541,
+      "forget_l1 vs SMA200 slope(20d)": 0.018844114393582162,
+      "forget_top vs [control] Close/SMA50-1": 0.48410219883092104,
+      "forget_l1 vs [control] Close/SMA50-1": 0.1049894807844768,
+      "forget_top vs [control] 21d return": 0.3145207075841552,
+      "forget_l1 vs [control] 21d return": 0.07249917531286919
+    },
+    "pc1_per_fold": [
+      {
+        "fold": 0,
+        "Close/SMA200-1": 0.8587913396905823,
+        "SMA200 slope(20d)": 0.7809389676510717,
+        "[control] Close/SMA50-1": 0.41823924401226265,
+        "[control] 21d return": 0.27246218253808124
+      },
+      {
+        "fold": 1,
+        "Close/SMA200-1": 0.5042695524094464,
+        "SMA200 slope(20d)": 0.44238150613173954,
+        "[control] Close/SMA50-1": 0.6507888853852307,
+        "[control] 21d return": 0.5370003555920407
+      },
+      {
+        "fold": 2,
+        "Close/SMA200-1": 0.149723141882666,
+        "SMA200 slope(20d)": 0.24925149211665026,
+        "[control] Close/SMA50-1": 0.4065603070241912,
+        "[control] 21d return": 0.3952733043887061
+      },
+      {
+        "fold": 3,
+        "Close/SMA200-1": 0.4031177507789231,
+        "SMA200 slope(20d)": 0.11243746780543738,
+        "[control] Close/SMA50-1": 0.5496943656367228,
+        "[control] 21d return": 0.536018580256689
+      },
+      {
+        "fold": 4,
+        "Close/SMA200-1": 0.4381313303421793,
+        "SMA200 slope(20d)": 0.4221810458758276,
+        "[control] Close/SMA50-1": 0.22977327852014764,
+        "[control] 21d return": 0.16577471999239132
+      },
+      {
+        "fold": 5,
+        "Close/SMA200-1": 0.8745071913096263,
+        "SMA200 slope(20d)": 0.7195382263181772,
+        "[control] Close/SMA50-1": 0.5218489683361044,
+        "[control] 21d return": 0.3354469490122666
+      },
+      {
+        "fold": 6,
+        "Close/SMA200-1": 0.11328032017805627,
+        "SMA200 slope(20d)": 0.3214436033228308,
+        "[control] Close/SMA50-1": 0.4639480606094635,
+        "[control] 21d return": 0.28117181376050593
+      },
+      {
+        "fold": 7,
+        "Close/SMA200-1": 0.40068968769300006,
+        "SMA200 slope(20d)": 0.3739829342009217,
+        "[control] Close/SMA50-1": 0.6556389891978708,
+        "[control] 21d return": 0.5591649646922584
+      },
+      {
+        "fold": 8,
+        "Close/SMA200-1": 0.792549208839962,
+        "SMA200 slope(20d)": 0.5742793988239145,
+        "[control] Close/SMA50-1": 0.673709409728286,
+        "[control] 21d return": 0.4717810488718692
+      },
+      {
+        "fold": 9,
+        "Close/SMA200-1": 0.8120025480010771,
+        "SMA200 slope(20d)": 0.8917413354001782,
+        "[control] Close/SMA50-1": 0.32591839366822856,
+        "[control] 21d return": 0.10992436514130252
+      },
+      {
+        "fold": 10,
+        "Close/SMA200-1": 0.023731440110059267,
+        "SMA200 slope(20d)": 0.012077495401078123,
+        "[control] Close/SMA50-1": 0.041042908571919785,
+        "[control] 21d return": 0.034969799424667936
+      },
+      {
+        "fold": 11,
+        "Close/SMA200-1": 0.7067792440860876,
+        "SMA200 slope(20d)": 0.6052796406445827,
+        "[control] Close/SMA50-1": 0.30268917966300835,
+        "[control] 21d return": 0.17119817033961662
+      },
+      {
+        "fold": 12,
+        "Close/SMA200-1": 0.1434983067809767,
+        "SMA200 slope(20d)": 0.39600974009326917,
+        "[control] Close/SMA50-1": 0.6270403749703343,
+        "[control] 21d return": 0.5411010948299004
+      },
+      {
+        "fold": 13,
+        "Close/SMA200-1": 0.2674246991585026,
+        "SMA200 slope(20d)": 0.2670132919829995,
+        "[control] Close/SMA50-1": 0.20590469864130556,
+        "[control] 21d return": 0.28868653744796713
+      },
+      {
+        "fold": 14,
+        "Close/SMA200-1": 0.7477717607272455,
+        "SMA200 slope(20d)": 0.37640164436560036,
+        "[control] Close/SMA50-1": 0.730965167135395,
+        "[control] 21d return": 0.5358240252768699
+      },
+      {
+        "fold": 15,
+        "Close/SMA200-1": 0.6263130555760097,
+        "SMA200 slope(20d)": 0.1328511031921984,
+        "[control] Close/SMA50-1": 0.822580845536409,
+        "[control] 21d return": 0.6936698507049658
+      }
+    ],
+    "best_unit_per_fold": [
+      {
+        "fold": 0,
+        "Close/SMA200-1": 0.9095536100642676,
+        "Close/SMA200-1 unit": 3,
+        "SMA200 slope(20d)": 0.8150386368253553,
+        "SMA200 slope(20d) unit": 1,
+        "[control] Close/SMA50-1": 0.7201947585276431,
+        "[control] Close/SMA50-1 unit": 22,
+        "[control] 21d return": 0.6535124780630936,
+        "[control] 21d return unit": 22
+      },
+      {
+        "fold": 1,
+        "Close/SMA200-1": 0.641463888256019,
+        "Close/SMA200-1 unit": 4,
+        "SMA200 slope(20d)": 0.8489218773569311,
+        "SMA200 slope(20d) unit": 21,
+        "[control] Close/SMA50-1": 0.7290423176580895,
+        "[control] Close/SMA50-1 unit": 26,
+        "[control] 21d return": 0.7000112925020757,
+        "[control] 21d return unit": 19
+      },
+      {
+        "fold": 2,
+        "Close/SMA200-1": 0.6783818439518904,
+        "Close/SMA200-1 unit": 5,
+        "SMA200 slope(20d)": 0.6516011895953785,
+        "SMA200 slope(20d) unit": 8,
+        "[control] Close/SMA50-1": 0.6814900114617748,
+        "[control] Close/SMA50-1 unit": 1,
+        "[control] 21d return": 0.6453864525838318,
+        "[control] 21d return unit": 11
+      },
+      {
+        "fold": 3,
+        "Close/SMA200-1": 0.6425613442862567,
+        "Close/SMA200-1 unit": 3,
+        "SMA200 slope(20d)": 0.75704664679196,
+        "SMA200 slope(20d) unit": 4,
+        "[control] Close/SMA50-1": 0.7258649521744035,
+        "[control] Close/SMA50-1 unit": 5,
+        "[control] 21d return": 0.6733432819015124,
+        "[control] 21d return unit": 5
+      },
+      {
+        "fold": 4,
+        "Close/SMA200-1": 0.6291194436949699,
+        "Close/SMA200-1 unit": 1,
+        "SMA200 slope(20d)": 0.653399029958116,
+        "SMA200 slope(20d) unit": 21,
+        "[control] Close/SMA50-1": 0.4951043645512393,
+        "[control] Close/SMA50-1 unit": 5,
+        "[control] 21d return": 0.4806300487869178,
+        "[control] 21d return unit": 18
+      },
+      {
+        "fold": 5,
+        "Close/SMA200-1": 0.8712340940098622,
+        "Close/SMA200-1 unit": 3,
+        "SMA200 slope(20d)": 0.799086888603246,
+        "SMA200 slope(20d) unit": 30,
+        "[control] Close/SMA50-1": 0.7492962509939535,
+        "[control] Close/SMA50-1 unit": 28,
+        "[control] 21d return": 0.7303389630422115,
+        "[control] 21d return unit": 28
+      },
+      {
+        "fold": 6,
+        "Close/SMA200-1": 0.6070537944439881,
+        "Close/SMA200-1 unit": 26,
+        "SMA200 slope(20d)": 0.5491174062108034,
+        "SMA200 slope(20d) unit": 11,
+        "[control] Close/SMA50-1": 0.6370487817708584,
+        "[control] Close/SMA50-1 unit": 20,
+        "[control] 21d return": 0.5955115277896333,
+        "[control] 21d return unit": 20
+      },
+      {
+        "fold": 7,
+        "Close/SMA200-1": 0.6640909295084275,
+        "Close/SMA200-1 unit": 22,
+        "SMA200 slope(20d)": 0.6161132922848261,
+        "SMA200 slope(20d) unit": 21,
+        "[control] Close/SMA50-1": 0.7832505043210131,
+        "[control] Close/SMA50-1 unit": 5,
+        "[control] 21d return": 0.741510152174432,
+        "[control] 21d return unit": 5
+      },
+      {
+        "fold": 8,
+        "Close/SMA200-1": 0.8377237521419854,
+        "Close/SMA200-1 unit": 0,
+        "SMA200 slope(20d)": 0.8954576722098795,
+        "SMA200 slope(20d) unit": 30,
+        "[control] Close/SMA50-1": 0.725447422136619,
+        "[control] Close/SMA50-1 unit": 28,
+        "[control] 21d return": 0.6727611180596661,
+        "[control] 21d return unit": 28
+      },
+      {
+        "fold": 9,
+        "Close/SMA200-1": 0.8509074924159358,
+        "Close/SMA200-1 unit": 28,
+        "SMA200 slope(20d)": 0.9175658096873809,
+        "SMA200 slope(20d) unit": 23,
+        "[control] Close/SMA50-1": 0.7207457816011682,
+        "[control] Close/SMA50-1 unit": 28,
+        "[control] 21d return": 0.6196666119922348,
+        "[control] 21d return unit": 28
+      },
+      {
+        "fold": 10,
+        "Close/SMA200-1": 0.7647760871144939,
+        "Close/SMA200-1 unit": 26,
+        "SMA200 slope(20d)": 0.4915681288897322,
+        "SMA200 slope(20d) unit": 15,
+        "[control] Close/SMA50-1": 0.6438405326236997,
+        "[control] Close/SMA50-1 unit": 29,
+        "[control] 21d return": 0.5704820754671718,
+        "[control] 21d return unit": 24
+      },
+      {
+        "fold": 11,
+        "Close/SMA200-1": 0.6826922078029759,
+        "Close/SMA200-1 unit": 22,
+        "SMA200 slope(20d)": 0.7935380046048989,
+        "SMA200 slope(20d) unit": 0,
+        "[control] Close/SMA50-1": 0.6802352860966098,
+        "[control] Close/SMA50-1 unit": 24,
+        "[control] 21d return": 0.6514107215562985,
+        "[control] 21d return unit": 29
+      },
+      {
+        "fold": 12,
+        "Close/SMA200-1": 0.7719749163310793,
+        "Close/SMA200-1 unit": 1,
+        "SMA200 slope(20d)": 0.7311991522853214,
+        "SMA200 slope(20d) unit": 24,
+        "[control] Close/SMA50-1": 0.6827001604527768,
+        "[control] Close/SMA50-1 unit": 27,
+        "[control] 21d return": 0.6784421037789639,
+        "[control] 21d return unit": 4
+      },
+      {
+        "fold": 13,
+        "Close/SMA200-1": 0.7335804960291428,
+        "Close/SMA200-1 unit": 1,
+        "SMA200 slope(20d)": 0.5826705608104433,
+        "SMA200 slope(20d) unit": 0,
+        "[control] Close/SMA50-1": 0.6294321199283086,
+        "[control] Close/SMA50-1 unit": 21,
+        "[control] 21d return": 0.6483722760534923,
+        "[control] 21d return unit": 21
+      },
+      {
+        "fold": 14,
+        "Close/SMA200-1": 0.893650393815523,
+        "Close/SMA200-1 unit": 30,
+        "SMA200 slope(20d)": 0.7515111341924566,
+        "SMA200 slope(20d) unit": 2,
+        "[control] Close/SMA50-1": 0.8448612595422172,
+        "[control] Close/SMA50-1 unit": 22,
+        "[control] 21d return": 0.721910749865786,
+        "[control] 21d return unit": 22
+      },
+      {
+        "fold": 15,
+        "Close/SMA200-1": 0.7922847781984111,
+        "Close/SMA200-1 unit": 11,
+        "SMA200 slope(20d)": 0.48151138670360727,
+        "SMA200 slope(20d) unit": 18,
+        "[control] Close/SMA50-1": 0.8261408193210873,
+        "[control] Close/SMA50-1 unit": 1,
+        "[control] 21d return": 0.7487130971976891,
+        "[control] 21d return unit": 28
+      }
+    ],
+    "median_abs_pc1": {
+      "Close/SMA200-1": 0.47120044137581285,
+      "SMA200 slope(20d)": 0.3862056922294348,
+      "[control] Close/SMA50-1": 0.49289851447278393,
+      "[control] 21d return": 0.36536012670048634
+    },
+    "median_abs_best_unit": {
+      "Close/SMA200-1": 0.7491782915718184,
+      "SMA200 slope(20d)": 0.741355143238889,
+      "[control] Close/SMA50-1": 0.7204702700644057,
+      "[control] 21d return": 0.6631367980613798
+    }
+  },
+  "feature_group_ablation": {
+    "baseline (all features)": {
+      "Directional Accuracy (%)": 52.55547245076041,
+      "Sharpe": 0.8278819016029874,
+      "MDD (%)": -31.179679750948974,
+      "Total ROI (%)": 533.6360174659147,
+      "Avg Exposure (%)": 90.4960890171363,
+      "dSharpe": 0.0,
+      "dMDD (pp)": 0.0,
+      "dDA (pp)": 0.0
+    },
+    "trend200:neutral": {
+      "Directional Accuracy (%)": 52.55547245076041,
+      "Sharpe": 0.8325518119248968,
+      "MDD (%)": -31.167142840429886,
+      "Total ROI (%)": 539.8273590662778,
+      "Avg Exposure (%)": 90.21459925427637,
+      "dSharpe": 0.004669910321909443,
+      "dMDD (pp)": 0.012536910519088451,
+      "dDA (pp)": 0.0
+    },
+    "trend200:shuffle": {
+      "Directional Accuracy (%)": 52.55547245076041,
+      "Sharpe": 0.8307934349928554,
+      "MDD (%)": -31.169368792582596,
+      "Total ROI (%)": 535.156957318705,
+      "Avg Exposure (%)": 90.01368293166657,
+      "dSharpe": 0.0029115333898680484,
+      "dMDD (pp)": 0.010310958366378742,
+      "dDA (pp)": 0.0
+    },
+    "momentum:neutral": {
+      "Directional Accuracy (%)": 52.80478683620045,
+      "Sharpe": 0.8287997584413355,
+      "MDD (%)": -31.10109362262343,
+      "Total ROI (%)": 526.4330498377744,
+      "Avg Exposure (%)": 89.73452362792122,
+      "dSharpe": 0.0009178568383481078,
+      "dMDD (pp)": 0.07858612832554357,
+      "dDA (pp)": 0.24931438544003726
+    },
+    "momentum:shuffle": {
+      "Directional Accuracy (%)": 52.25629518823236,
+      "Sharpe": 0.8379218857168061,
+      "MDD (%)": -31.136099795005002,
+      "Total ROI (%)": 542.9598643862618,
+      "Avg Exposure (%)": 90.13987800596384,
+      "dSharpe": 0.01003998411381879,
+      "dMDD (pp)": 0.04357995594397224,
+      "dDA (pp)": -0.29917726252805465
+    },
+    "vol_regime:neutral": {
+      "Directional Accuracy (%)": 52.63026676639242,
+      "Sharpe": 0.8329308616787708,
+      "MDD (%)": -31.147040243425174,
+      "Total ROI (%)": 530.3512874686685,
+      "Avg Exposure (%)": 89.299456835455,
+      "dSharpe": 0.005048960075783482,
+      "dMDD (pp)": 0.032639507523800404,
+      "dDA (pp)": 0.07479431563200478
+    },
+    "vol_regime:shuffle": {
+      "Directional Accuracy (%)": 52.95437546746447,
+      "Sharpe": 0.8347015265179947,
+      "MDD (%)": -31.16775095387393,
+      "Total ROI (%)": 539.4522967602525,
+      "Avg Exposure (%)": 89.9761082798109,
+      "dSharpe": 0.006819624915007316,
+      "dMDD (pp)": 0.011928797075043462,
+      "dDA (pp)": 0.39890301670406103
+    },
+    "vix:neutral": {
+      "Directional Accuracy (%)": 54.3505360259287,
+      "Sharpe": 0.8295818780648152,
+      "MDD (%)": -31.07390546204849,
+      "Total ROI (%)": 525.0424454477296,
+      "Avg Exposure (%)": 89.45412053514355,
+      "dSharpe": 0.0016999764618278457,
+      "dMDD (pp)": 0.10577428890048424,
+      "dDA (pp)": 1.7950635751682853
+    },
+    "vix:shuffle": {
+      "Directional Accuracy (%)": 53.029169783096485,
+      "Sharpe": 0.8339157917774416,
+      "MDD (%)": -31.089169416479756,
+      "Total ROI (%)": 536.338507141758,
+      "Avg Exposure (%)": 89.85378520120815,
+      "dSharpe": 0.006033890174454215,
+      "dMDD (pp)": 0.09051033446921863,
+      "dDA (pp)": 0.4736973323360729
+    },
+    "macro_credit:neutral": {
+      "Directional Accuracy (%)": 51.832460732984295,
+      "Sharpe": 0.8289158491384598,
+      "MDD (%)": -31.132298300913664,
+      "Total ROI (%)": 531.1274372059119,
+      "Avg Exposure (%)": 90.09879227871524,
+      "dSharpe": 0.0010339475354724792,
+      "dMDD (pp)": 0.047381450035310024,
+      "dDA (pp)": -0.7230117177761173
+    },
+    "macro_credit:shuffle": {
+      "Directional Accuracy (%)": 52.85464971328846,
+      "Sharpe": 0.8296157007094824,
+      "MDD (%)": -31.082701804953828,
+      "Total ROI (%)": 521.8291314960712,
+      "Avg Exposure (%)": 88.99042666750023,
+      "dSharpe": 0.0017337991064950709,
+      "dMDD (pp)": 0.09697794599514609,
+      "dDA (pp)": 0.29917726252804755
+    }
+  },
+  "verdict_200d_memory": {
+    "label": "NOT SUPPORTED",
+    "text": "200-DAY MEMORY / CRASH-PROTECTION VERDICT: NOT SUPPORTED. Average exposure 90.5%. (a) Mean top-layer forget-gate correlates r=0.30 with Close/SMA200-1 and r=0.02 with the 20-day SMA_200 slope (pooled Pearson); median per-fold |r| of cell-state PC1 = 0.47 / 0.39 (placebo 50-day trend: 0.49; a 200-day-specific memory should beat the placebo) -> not met (needs pooled |r|>=0.3 and PC1 |r|>=0.5). (b) in 4 scored OOS crash window(s) the strategy had a shallower MDD than an exposure-matched constant-weight Buy & Hold in 1; mean return -21.77% vs Buy & Hold -23.68%; average exposure 91.18% in crashes vs 90.50% overall (needs >=10 pp lower in crashes) -> not met. (c) Neutralising/shuffling the 200-day feature group changes directional accuracy by up to 0.00 pp, MDD by up to 0.01 pp and Sharpe by up to 0.00 -> not met (needs DA drop >=1 pp, MDD worsening >=2 pp or Sharpe drop >=0.1). SKILL CHECK: corr(predicted, actual next-day return) = -0.009; corr(exposure, next-day return) = -0.026; up-day base rate 55.1%. CAVEATS: the initial training window runs to 2010-11-19 and contains the whole 2008 crash, so no 2008 claim is out-of-sample; the LSTM has 17,474 parameters; gate/cell-state correlations between smooth trending series can be spurious and units are not comparable across retrained folds. Heuristic thresholds; 0/3 criteria met."
+  },
+  "smoke_test_synthetic_data": false
+}

@@ -1,0 +1,651 @@
+{
+  "experiment": "longterm_daily",
+  "model": "LSTM",
+  "ticker": "AAPL",
+  "config": {
+    "SEED": 42,
+    "WINDOW": 60,
+    "HIDDEN": 64,
+    "NUM_LAYERS": 2,
+    "DROPOUT": 0.2,
+    "BATCH": 64,
+    "LR": 0.001,
+    "EPOCHS": 80,
+    "PATIENCE": 10,
+    "GRAD_CLIP": 1.0,
+    "INITIAL_CAPITAL": 100000,
+    "COST_PER_SIDE": 0.0005,
+    "INITIAL_TRAIN_YEARS": 3,
+    "RETRAIN_EVERY": 252
+  },
+  "n_params": {
+    "lstm": 53313,
+    "simple_rnn": 13377,
+    "param_matched_hidden": 31
+  },
+  "in_sample_window": [
+    "2007-09-07",
+    "2010-09-07"
+  ],
+  "oos_window": [
+    "2010-09-08",
+    "2026-11-17"
+  ],
+  "metrics": {
+    "strategy": {
+      "Total ROI (%)": 5.579744467318174,
+      "Net Profit (INR)": 5579.744467318174,
+      "Profit Factor": 1.4168602928325587,
+      "Total Trades": 15,
+      "MDD (%)": -9.04854531711936,
+      "VaR95 (%)": -0.0,
+      "VaR95 (INR)": -0.0,
+      "Sharpe": 0.11372564475123752,
+      "Sortino": 0.16548822455384532,
+      "Directional Accuracy (%)": 47.18465699532825,
+      "RMSE (USD)": 49.501966403743765,
+      "MAPE (%)": 27.77113943251373
+    },
+    "buy_hold": {
+      "Total ROI (%)": 4377.715863269212,
+      "Net Profit (INR)": 4377715.863269212,
+      "Profit Factor": null,
+      "Total Trades": 1,
+      "MDD (%)": -43.797165093780286,
+      "VaR95 (%)": -2.634860109254626,
+      "VaR95 (INR)": -2634.860109254626,
+      "Sharpe": 0.9802988801179576,
+      "Sortino": 1.4448847116954047
+    },
+    "persistence": {
+      "Directional Accuracy (%)": null,
+      "RMSE (USD)": 2.1726880505696,
+      "MAPE (%)": 1.2345418223158307
+    },
+    "lstm_param_matched": {
+      "Total ROI (%)": 13.247683131875194,
+      "Net Profit (INR)": 13247.683131875194,
+      "Profit Factor": 3.4955937747869474,
+      "Total Trades": 11,
+      "MDD (%)": -9.04854531711936,
+      "VaR95 (%)": 0.0,
+      "VaR95 (INR)": 0.0,
+      "Sharpe": 0.22855881277080675,
+      "Sortino": 0.3411007691820915,
+      "Directional Accuracy (%)": 47.283009589377926,
+      "RMSE (USD)": 53.107583258604166,
+      "MAPE (%)": 30.53370223401873
+    }
+  },
+  "folds": [
+    {
+      "fold": 0,
+      "train_start": "2007-09-07",
+      "train_end": "2010-09-07",
+      "oos_start": "2010-09-08",
+      "oos_end": "2011-09-06",
+      "n_train": 592,
+      "n_val": 105,
+      "best_val_loss": 0.07304586470127106,
+      "best_epoch": 42,
+      "epochs_run": 52
+    },
+    {
+      "fold": 1,
+      "train_start": "2007-09-07",
+      "train_end": "2011-09-06",
+      "oos_start": "2011-09-07",
+      "oos_end": "2012-09-05",
+      "n_train": 807,
+      "n_val": 142,
+      "best_val_loss": 0.07786475121974945,
+      "best_epoch": 11,
+      "epochs_run": 21
+    },
+    {
+      "fold": 2,
+      "train_start": "2007-09-07",
+      "train_end": "2012-09-05",
+      "oos_start": "2012-09-06",
+      "oos_end": "2013-09-09",
+      "n_train": 1021,
+      "n_val": 180,
+      "best_val_loss": 2.2411389350891113,
+      "best_epoch": 51,
+      "epochs_run": 61
+    },
+    {
+      "fold": 3,
+      "train_start": "2007-09-07",
+      "train_end": "2013-09-09",
+      "oos_start": "2013-09-10",
+      "oos_end": "2014-09-09",
+      "n_train": 1235,
+      "n_val": 218,
+      "best_val_loss": 0.013666775077581406,
+      "best_epoch": 17,
+      "epochs_run": 27
+    },
+    {
+      "fold": 4,
+      "train_start": "2007-09-07",
+      "train_end": "2014-09-09",
+      "oos_start": "2014-09-10",
+      "oos_end": "2015-09-09",
+      "n_train": 1449,
+      "n_val": 256,
+      "best_val_loss": 0.019204191863536835,
+      "best_epoch": 5,
+      "epochs_run": 15
+    },
+    {
+      "fold": 5,
+      "train_start": "2007-09-07",
+      "train_end": "2015-09-09",
+      "oos_start": "2015-09-10",
+      "oos_end": "2016-09-08",
+      "n_train": 1663,
+      "n_val": 294,
+      "best_val_loss": 0.6105413436889648,
+      "best_epoch": 23,
+      "epochs_run": 33
+    },
+    {
+      "fold": 6,
+      "train_start": "2007-09-07",
+      "train_end": "2016-09-08",
+      "oos_start": "2016-09-09",
+      "oos_end": "2017-09-08",
+      "n_train": 1878,
+      "n_val": 331,
+      "best_val_loss": 0.012028795666992664,
+      "best_epoch": 13,
+      "epochs_run": 23
+    },
+    {
+      "fold": 7,
+      "train_start": "2007-09-07",
+      "train_end": "2017-09-08",
+      "oos_start": "2017-09-11",
+      "oos_end": "2018-09-10",
+      "n_train": 2092,
+      "n_val": 369,
+      "best_val_loss": 0.12709161639213562,
+      "best_epoch": 10,
+      "epochs_run": 20
+    },
+    {
+      "fold": 8,
+      "train_start": "2007-09-07",
+      "train_end": "2018-09-10",
+      "oos_start": "2018-09-11",
+      "oos_end": "2019-09-11",
+      "n_train": 2306,
+      "n_val": 407,
+      "best_val_loss": 1.1014817953109741,
+      "best_epoch": 19,
+      "epochs_run": 29
+    },
+    {
+      "fold": 9,
+      "train_start": "2007-09-07",
+      "train_end": "2019-09-11",
+      "oos_start": "2019-09-12",
+      "oos_end": "2020-09-10",
+      "n_train": 2520,
+      "n_val": 445,
+      "best_val_loss": 0.3787898123264313,
+      "best_epoch": 5,
+      "epochs_run": 15
+    },
+    {
+      "fold": 10,
+      "train_start": "2007-09-07",
+      "train_end": "2020-09-10",
+      "oos_start": "2020-09-11",
+      "oos_end": "2021-09-10",
+      "n_train": 2734,
+      "n_val": 483,
+      "best_val_loss": 2.5695598125457764,
+      "best_epoch": 5,
+      "epochs_run": 15
+    },
+    {
+      "fold": 11,
+      "train_start": "2007-09-07",
+      "train_end": "2021-09-10",
+      "oos_start": "2021-09-13",
+      "oos_end": "2022-09-12",
+      "n_train": 2949,
+      "n_val": 520,
+      "best_val_loss": 14.315945625305176,
+      "best_epoch": 9,
+      "epochs_run": 19
+    },
+    {
+      "fold": 12,
+      "train_start": "2007-09-07",
+      "train_end": "2022-09-12",
+      "oos_start": "2022-09-13",
+      "oos_end": "2023-09-13",
+      "n_train": 3163,
+      "n_val": 558,
+      "best_val_loss": 8.647871971130371,
+      "best_epoch": 37,
+      "epochs_run": 47
+    },
+    {
+      "fold": 13,
+      "train_start": "2007-09-07",
+      "train_end": "2023-09-13",
+      "oos_start": "2023-09-14",
+      "oos_end": "2024-09-13",
+      "n_train": 3377,
+      "n_val": 596,
+      "best_val_loss": 0.7631235122680664,
+      "best_epoch": 11,
+      "epochs_run": 21
+    },
+    {
+      "fold": 14,
+      "train_start": "2007-09-07",
+      "train_end": "2024-09-13",
+      "oos_start": "2024-09-16",
+      "oos_end": "2025-09-17",
+      "n_train": 3591,
+      "n_val": 634,
+      "best_val_loss": 0.14540323615074158,
+      "best_epoch": 12,
+      "epochs_run": 22
+    },
+    {
+      "fold": 15,
+      "train_start": "2007-09-07",
+      "train_end": "2025-09-17",
+      "oos_start": "2025-09-18",
+      "oos_end": "2026-09-18",
+      "n_train": 3805,
+      "n_val": 672,
+      "best_val_loss": 0.4562881886959076,
+      "best_epoch": 5,
+      "epochs_run": 15
+    },
+    {
+      "fold": 16,
+      "train_start": "2007-09-07",
+      "train_end": "2026-09-18",
+      "oos_start": "2026-09-21",
+      "oos_end": "2026-11-17",
+      "n_train": 4020,
+      "n_val": 709,
+      "best_val_loss": 0.9241416454315186,
+      "best_epoch": 33,
+      "epochs_run": 43
+    }
+  ],
+  "crash_windows": [
+    {
+      "window": "2008 GFC",
+      "peak": "2007-12-28",
+      "trough": "2009-01-20",
+      "B&H full-DD_%": -60.866738311018985,
+      "oos_days": 0,
+      "note": "in-sample / too few OOS days - not scored",
+      "LSTM_ret_%": null,
+      "LSTM_MDD_%": null,
+      "LSTM_days_flat": null,
+      "LSTM_flat_%": null,
+      "BH_ret_%": null,
+      "BH_MDD_%": null
+    },
+    {
+      "window": "DD Sep12-Apr13",
+      "peak": "2012-09-19",
+      "trough": "2013-04-19",
+      "B&H full-DD_%": -43.79716509378034,
+      "oos_days": 145,
+      "note": null,
+      "LSTM_ret_%": 0.0,
+      "LSTM_MDD_%": 0.0,
+      "LSTM_days_flat": 145.0,
+      "LSTM_flat_%": 100.0,
+      "BH_ret_%": -43.78193607881873,
+      "BH_MDD_%": -43.797165093780336
+    },
+    {
+      "window": "DD Oct18-Jan19",
+      "peak": "2018-10-03",
+      "trough": "2019-01-03",
+      "B&H full-DD_%": -38.515903791294384,
+      "oos_days": 63,
+      "note": null,
+      "LSTM_ret_%": 0.0,
+      "LSTM_MDD_%": 0.0,
+      "LSTM_days_flat": 63.0,
+      "LSTM_flat_%": 100.0,
+      "BH_ret_%": -37.76774234654867,
+      "BH_MDD_%": -38.51590379129445
+    },
+    {
+      "window": "2020 COVID",
+      "peak": "2020-02-12",
+      "trough": "2020-03-23",
+      "B&H full-DD_%": -31.427285799547434,
+      "oos_days": 28,
+      "note": null,
+      "LSTM_ret_%": 0.0,
+      "LSTM_MDD_%": 0.0,
+      "LSTM_days_flat": 28.0,
+      "LSTM_flat_%": 100.0,
+      "BH_ret_%": -29.798806869887564,
+      "BH_MDD_%": -31.427285799547434
+    },
+    {
+      "window": "2022 bear",
+      "peak": "2022-01-03",
+      "trough": "2023-01-05",
+      "B&H full-DD_%": -30.91279487391133,
+      "oos_days": 254,
+      "note": null,
+      "LSTM_ret_%": 0.0,
+      "LSTM_MDD_%": 0.0,
+      "LSTM_days_flat": 254.0,
+      "LSTM_flat_%": 100.0,
+      "BH_ret_%": -29.185339821484124,
+      "BH_MDD_%": -30.91279487391119
+    },
+    {
+      "window": "DD Dec24-Apr25",
+      "peak": "2024-12-26",
+      "trough": "2025-04-08",
+      "B&H full-DD_%": -33.36051063073737,
+      "oos_days": 70,
+      "note": null,
+      "LSTM_ret_%": 0.0,
+      "LSTM_MDD_%": 0.0,
+      "LSTM_days_flat": 70.0,
+      "LSTM_flat_%": 100.0,
+      "BH_ret_%": -33.14888203929699,
+      "BH_MDD_%": -33.36051063073736
+    }
+  ],
+  "gate_analysis": {
+    "pooled": {
+      "forget_top vs Close/SMA200-1": {
+        "pearson": 0.17861140012970478,
+        "spearman": 0.2626858992611838
+      },
+      "forget_l1 vs Close/SMA200-1": {
+        "pearson": 0.16854005259851523,
+        "spearman": 0.16675149571963147
+      },
+      "forget_top vs SMA200 slope(20d)": {
+        "pearson": 0.1733813199722184,
+        "spearman": 0.24610814466291117
+      },
+      "forget_l1 vs SMA200 slope(20d)": {
+        "pearson": 0.17203610673880043,
+        "spearman": 0.16823340246566612
+      }
+    },
+    "within_fold": {
+      "forget_top vs Close/SMA200-1": 0.637984726435379,
+      "forget_l1 vs Close/SMA200-1": 0.33766527410734865,
+      "forget_top vs SMA200 slope(20d)": 0.4573462481747632,
+      "forget_l1 vs SMA200 slope(20d)": 0.21554933731884957
+    },
+    "first_diff": {
+      "forget_top vs Close/SMA200-1": 0.4708393168484357,
+      "forget_l1 vs Close/SMA200-1": 0.5407309877909234,
+      "forget_top vs SMA200 slope(20d)": 0.20290752459809955,
+      "forget_l1 vs SMA200 slope(20d)": 0.045146793459169304
+    },
+    "pc1_per_fold": [
+      {
+        "fold": 0,
+        "Close/SMA200-1": 0.31181696036302703,
+        "SMA200 slope(20d)": 0.276301039885444
+      },
+      {
+        "fold": 1,
+        "Close/SMA200-1": 0.6152443883346121,
+        "SMA200 slope(20d)": 0.7259403172922236
+      },
+      {
+        "fold": 2,
+        "Close/SMA200-1": 0.7124405123517469,
+        "SMA200 slope(20d)": 0.8772952813893209
+      },
+      {
+        "fold": 3,
+        "Close/SMA200-1": 0.7147350662116636,
+        "SMA200 slope(20d)": 0.7425080788180621
+      },
+      {
+        "fold": 4,
+        "Close/SMA200-1": 0.06999365858149093,
+        "SMA200 slope(20d)": 0.12621815359845218
+      },
+      {
+        "fold": 5,
+        "Close/SMA200-1": 0.6249538954169407,
+        "SMA200 slope(20d)": 0.6119911993507962
+      },
+      {
+        "fold": 6,
+        "Close/SMA200-1": 0.6880627736974915,
+        "SMA200 slope(20d)": 0.8831813236795988
+      },
+      {
+        "fold": 7,
+        "Close/SMA200-1": 0.4717922023899218,
+        "SMA200 slope(20d)": 0.30812546146506486
+      },
+      {
+        "fold": 8,
+        "Close/SMA200-1": 0.881874206600647,
+        "SMA200 slope(20d)": 0.26027512215917487
+      },
+      {
+        "fold": 9,
+        "Close/SMA200-1": 0.7504997699908161,
+        "SMA200 slope(20d)": 0.6095712900230373
+      },
+      {
+        "fold": 10,
+        "Close/SMA200-1": 0.35446040573548304,
+        "SMA200 slope(20d)": 0.06294044312328563
+      },
+      {
+        "fold": 11,
+        "Close/SMA200-1": 0.7391442982304792,
+        "SMA200 slope(20d)": 0.5605150328513099
+      },
+      {
+        "fold": 12,
+        "Close/SMA200-1": 0.9007302859707732,
+        "SMA200 slope(20d)": 0.8415272864171612
+      },
+      {
+        "fold": 13,
+        "Close/SMA200-1": 0.8344390748335964,
+        "SMA200 slope(20d)": 0.5241040350042238
+      },
+      {
+        "fold": 14,
+        "Close/SMA200-1": 0.7880292626106822,
+        "SMA200 slope(20d)": 0.6406774035879118
+      },
+      {
+        "fold": 15,
+        "Close/SMA200-1": 0.6023565475763171,
+        "SMA200 slope(20d)": 0.16347767293427432
+      },
+      {
+        "fold": 16,
+        "Close/SMA200-1": 0.11629584965349657,
+        "SMA200 slope(20d)": 0.8738747538424503
+      }
+    ],
+    "best_unit_per_fold": [
+      {
+        "fold": 0,
+        "Close/SMA200-1": 0.8211792192055347,
+        "Close/SMA200-1 unit": 28,
+        "SMA200 slope(20d)": 0.8091997363484565,
+        "SMA200 slope(20d) unit": 49
+      },
+      {
+        "fold": 1,
+        "Close/SMA200-1": 0.8866867636098122,
+        "Close/SMA200-1 unit": 28,
+        "SMA200 slope(20d)": 0.8643430395143843,
+        "SMA200 slope(20d) unit": 7
+      },
+      {
+        "fold": 2,
+        "Close/SMA200-1": 0.9532546723002303,
+        "Close/SMA200-1 unit": 32,
+        "SMA200 slope(20d)": 0.8945018609150436,
+        "SMA200 slope(20d) unit": 46
+      },
+      {
+        "fold": 3,
+        "Close/SMA200-1": 0.8434383111095356,
+        "Close/SMA200-1 unit": 53,
+        "SMA200 slope(20d)": 0.9152563499614872,
+        "SMA200 slope(20d) unit": 5
+      },
+      {
+        "fold": 4,
+        "Close/SMA200-1": 0.9438677306756286,
+        "Close/SMA200-1 unit": 19,
+        "SMA200 slope(20d)": 0.8815385684020537,
+        "SMA200 slope(20d) unit": 19
+      },
+      {
+        "fold": 5,
+        "Close/SMA200-1": 0.9130567942430015,
+        "Close/SMA200-1 unit": 1,
+        "SMA200 slope(20d)": 0.9269253571985354,
+        "SMA200 slope(20d) unit": 11
+      },
+      {
+        "fold": 6,
+        "Close/SMA200-1": 0.9137793470373682,
+        "Close/SMA200-1 unit": 12,
+        "SMA200 slope(20d)": 0.9214225610635738,
+        "SMA200 slope(20d) unit": 33
+      },
+      {
+        "fold": 7,
+        "Close/SMA200-1": 0.8013278121757231,
+        "Close/SMA200-1 unit": 22,
+        "SMA200 slope(20d)": 0.9084815982075504,
+        "SMA200 slope(20d) unit": 45
+      },
+      {
+        "fold": 8,
+        "Close/SMA200-1": 0.9229597197008804,
+        "Close/SMA200-1 unit": 43,
+        "SMA200 slope(20d)": 0.6315448129998774,
+        "SMA200 slope(20d) unit": 56
+      },
+      {
+        "fold": 9,
+        "Close/SMA200-1": 0.8340036660617901,
+        "Close/SMA200-1 unit": 53,
+        "SMA200 slope(20d)": 0.6557657383856501,
+        "SMA200 slope(20d) unit": 8
+      },
+      {
+        "fold": 10,
+        "Close/SMA200-1": 0.6582570051809469,
+        "Close/SMA200-1 unit": 2,
+        "SMA200 slope(20d)": 0.7279292474543824,
+        "SMA200 slope(20d) unit": 2
+      },
+      {
+        "fold": 11,
+        "Close/SMA200-1": 0.8037719782622192,
+        "Close/SMA200-1 unit": 32,
+        "SMA200 slope(20d)": 0.6731668569650818,
+        "SMA200 slope(20d) unit": 32
+      },
+      {
+        "fold": 12,
+        "Close/SMA200-1": 0.9047973949054319,
+        "Close/SMA200-1 unit": 34,
+        "SMA200 slope(20d)": 0.9322850007473844,
+        "SMA200 slope(20d) unit": 63
+      },
+      {
+        "fold": 13,
+        "Close/SMA200-1": 0.9304531230554397,
+        "Close/SMA200-1 unit": 58,
+        "SMA200 slope(20d)": 0.7596590499804814,
+        "SMA200 slope(20d) unit": 32
+      },
+      {
+        "fold": 14,
+        "Close/SMA200-1": 0.8495009571808037,
+        "Close/SMA200-1 unit": 16,
+        "SMA200 slope(20d)": 0.8111390066972995,
+        "SMA200 slope(20d) unit": 45
+      },
+      {
+        "fold": 15,
+        "Close/SMA200-1": 0.7949665255412489,
+        "Close/SMA200-1 unit": 49,
+        "SMA200 slope(20d)": 0.6234126002454966,
+        "SMA200 slope(20d) unit": 63
+      },
+      {
+        "fold": 16,
+        "Close/SMA200-1": 0.8055703741257384,
+        "Close/SMA200-1 unit": 42,
+        "SMA200 slope(20d)": 0.946455300177183,
+        "SMA200 slope(20d) unit": 11
+      }
+    ],
+    "median_abs_pc1": {
+      "Close/SMA200-1": 0.6880627736974915,
+      "SMA200 slope(20d)": 0.6095712900230373
+    },
+    "median_abs_best_unit": {
+      "Close/SMA200-1": 0.8495009571808037,
+      "SMA200 slope(20d)": 0.8643430395143843
+    }
+  },
+  "ablation": {
+    "baseline (SMA_200 intact)": {
+      "Directional Accuracy (%)": 47.18465699532825,
+      "MDD (%)": -9.04854531711936,
+      "Total ROI (%)": 5.579744467318174,
+      "Total Trades": 15.0,
+      "dDA (pp)": 0.0,
+      "dMDD (pp)": 0.0
+    },
+    "SMA_200 neutralised (=train mean)": {
+      "Directional Accuracy (%)": 46.98795180722892,
+      "MDD (%)": -0.06033258874753589,
+      "Total ROI (%)": 2.128228784460151,
+      "Total Trades": 2.0,
+      "dDA (pp)": -0.19670518809932958,
+      "dMDD (pp)": 8.988212728371824
+    },
+    "SMA_200 shuffled in time": {
+      "Directional Accuracy (%)": 47.110892549791004,
+      "MDD (%)": -9.04854531711936,
+      "Total ROI (%)": 12.41327356650519,
+      "Total Trades": 13.0,
+      "dDA (pp)": -0.07376444553724326,
+      "dMDD (pp)": 0.0
+    }
+  },
+  "verdict": {
+    "label": "NOT SUPPORTED",
+    "text": "VERDICT: NOT SUPPORTED. (a) Mean top-layer forget-gate correlates r=0.18 with Close/SMA200-1 and r=0.17 with the 20-day SMA_200 slope (pooled Pearson; within-fold and first-difference versions are in the JSON); the median per-fold |r| of the cell-state PC1 is 0.69 / 0.61 -> criterion not met (needs |r|>=0.3 pooled and >=0.5 PC1). (b) In 5 scored OOS crash window(s) the LSTM strategy had a shallower MDD than Buy & Hold in 5 (mean return 0.00% vs B&H -34.74%, mean days flat 100.00%) -> met. (c) Removing SMA_200 at test time changes directional accuracy by up to -0.20 pp and MDD by up to 0.00 pp (baseline DA 47.18%, MDD -9.05%) -> not met (needs DA drop >=1 pp or MDD worsening >=2 pp). CAVEATS: the initial training window runs to 2010-09-07 and therefore contains the whole 2008 crash, so no 2008 claim is out-of-sample; the LSTM has 53,313 parameters vs 13,377 for the RNN (~4x recurrent weights), a capacity confound (parameter-matched hidden=31 is reported separately as a robustness check); forget-gate/cell-state correlations between two smooth, trending series can be spurious, and gate units are not comparable across retrained folds. Evidence thresholds are heuristic; 1/3 criteria met."
+  },
+  "smoke_test_synthetic_data": false
+}

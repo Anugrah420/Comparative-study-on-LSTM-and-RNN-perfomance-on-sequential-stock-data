@@ -1,0 +1,886 @@
+{
+  "experiment": "longterm_daily",
+  "model": "LSTM",
+  "ticker": "AAPL",
+  "config": {
+    "SEED": 42,
+    "WINDOW": 60,
+    "HIDDEN": 64,
+    "NUM_LAYERS": 2,
+    "DROPOUT": 0.2,
+    "BATCH": 64,
+    "LR": 0.0003,
+    "EPOCHS": 80,
+    "PATIENCE": 10,
+    "GRAD_CLIP": 1.0,
+    "INITIAL_CAPITAL": 100000,
+    "COST_PER_SIDE": 0.0005,
+    "INITIAL_TRAIN_YEARS": 3,
+    "RETRAIN_EVERY": 252,
+    "N_SEEDS": 3,
+    "LOSS": "huber"
+  },
+  "version": "v3: log-return target, stationary features, seed ensemble, validation-tuned threshold, fwd-bias init, AdamW, GPU option, exposure-matched benchmark",
+  "time_in_market": 0.692895905278737,
+  "n_params": {
+    "lstm": 54081,
+    "simple_rnn": 13569,
+    "param_matched_hidden": 31
+  },
+  "in_sample_window": [
+    "2007-10-05",
+    "2010-10-05"
+  ],
+  "oos_window": [
+    "2010-10-06",
+    "2026-11-17"
+  ],
+  "metrics": {
+    "strategy": {
+      "Total ROI (%)": 1183.1779179783425,
+      "Net Profit (INR)": 1183177.9179783424,
+      "Profit Factor": 4.1099622020472415,
+      "Total Trades": 39,
+      "MDD (%)": -41.01827360830127,
+      "VaR95 (%)": -2.1285000839207835,
+      "VaR95 (INR)": -2128.5000839207833,
+      "Sharpe": 0.8299951387448314,
+      "Sortino": 1.2277368723857298,
+      "Directional Accuracy (%)": 51.93970842599457,
+      "RMSE (USD)": 2.1815590242834366,
+      "MAPE (%)": 1.244827404755418
+    },
+    "buy_hold": {
+      "Total ROI (%)": 3973.7919256081836,
+      "Net Profit (INR)": 3973791.9256081837,
+      "Profit Factor": null,
+      "Total Trades": 1,
+      "MDD (%)": -43.79714586926523,
+      "VaR95 (%)": -2.6513086505522936,
+      "VaR95 (INR)": -2651.308650552294,
+      "Sharpe": 0.9627826006622475,
+      "Sortino": 1.4176917349468245
+    },
+    "exposure_matched_bh": {
+      "Total ROI (%)": 1394.0184411225011,
+      "Net Profit (INR)": 1394018.4411225012,
+      "Profit Factor": null,
+      "Total Trades": null,
+      "MDD (%)": -32.372472952267294,
+      "VaR95 (%)": -1.837080907597778,
+      "VaR95 (INR)": -1837.0809075977782,
+      "Sharpe": 0.9630048128349677,
+      "Sortino": 1.418018569100006
+    },
+    "skill": {
+      "IC_pearson": -0.011639437950880158,
+      "IC_spearman": -0.017338052798212975,
+      "base_rate_up_days_%": 52.88603848051308,
+      "pred_up_share_%": 88.13517513566848,
+      "avg_daily_ret_when_long_bps": 10.6168263800536,
+      "avg_daily_ret_when_flat_bps": 10.915054214733157
+    },
+    "median_best_epoch": 3.0,
+    "persistence": {
+      "Directional Accuracy (%)": null,
+      "RMSE (USD)": 2.178037318332361,
+      "MAPE (%)": 1.235665558708995
+    },
+    "lstm_param_matched": null
+  },
+  "folds": [
+    {
+      "fold": 0,
+      "train_end": "2010-10-05",
+      "oos_start": "2010-10-06",
+      "oos_end": "2011-10-04",
+      "n_train": 592,
+      "n_val": 105,
+      "threshold": null,
+      "best_epochs": [
+        1,
+        1,
+        1
+      ],
+      "val_loss": [
+        0.1727,
+        0.1726,
+        0.1734
+      ]
+    },
+    {
+      "fold": 1,
+      "train_end": "2011-10-04",
+      "oos_start": "2011-10-05",
+      "oos_end": "2012-10-03",
+      "n_train": 807,
+      "n_val": 142,
+      "threshold": 0.0015224984374986531,
+      "best_epochs": [
+        1,
+        1,
+        1
+      ],
+      "val_loss": [
+        0.1918,
+        0.192,
+        0.1909
+      ]
+    },
+    {
+      "fold": 2,
+      "train_end": "2012-10-03",
+      "oos_start": "2012-10-04",
+      "oos_end": "2013-10-07",
+      "n_train": 1021,
+      "n_val": 180,
+      "threshold": 0.0013866884840735994,
+      "best_epochs": [
+        13,
+        10,
+        6
+      ],
+      "val_loss": [
+        0.2094,
+        0.2112,
+        0.2126
+      ]
+    },
+    {
+      "fold": 3,
+      "train_end": "2013-10-07",
+      "oos_start": "2013-10-08",
+      "oos_end": "2014-10-07",
+      "n_train": 1235,
+      "n_val": 218,
+      "threshold": 0.0004929935619767019,
+      "best_epochs": [
+        2,
+        1,
+        1
+      ],
+      "val_loss": [
+        0.2836,
+        0.2815,
+        0.283
+      ]
+    },
+    {
+      "fold": 4,
+      "train_end": "2014-10-07",
+      "oos_start": "2014-10-08",
+      "oos_end": "2015-10-07",
+      "n_train": 1449,
+      "n_val": 256,
+      "threshold": null,
+      "best_epochs": [
+        1,
+        1,
+        2
+      ],
+      "val_loss": [
+        0.1399,
+        0.1409,
+        0.1394
+      ]
+    },
+    {
+      "fold": 5,
+      "train_end": "2015-10-07",
+      "oos_start": "2015-10-08",
+      "oos_end": "2016-10-06",
+      "n_train": 1663,
+      "n_val": 294,
+      "threshold": -7.845361598343253e-05,
+      "best_epochs": [
+        4,
+        1,
+        11
+      ],
+      "val_loss": [
+        0.2302,
+        0.2305,
+        0.2314
+      ]
+    },
+    {
+      "fold": 6,
+      "train_end": "2016-10-06",
+      "oos_start": "2016-10-07",
+      "oos_end": "2017-10-06",
+      "n_train": 1878,
+      "n_val": 331,
+      "threshold": 0.0013101300565608973,
+      "best_epochs": [
+        3,
+        1,
+        4
+      ],
+      "val_loss": [
+        0.2659,
+        0.2642,
+        0.2666
+      ]
+    },
+    {
+      "fold": 7,
+      "train_end": "2017-10-06",
+      "oos_start": "2017-10-09",
+      "oos_end": "2018-10-08",
+      "n_train": 2092,
+      "n_val": 369,
+      "threshold": 0.0,
+      "best_epochs": [
+        6,
+        2,
+        4
+      ],
+      "val_loss": [
+        0.1425,
+        0.142,
+        0.1425
+      ]
+    },
+    {
+      "fold": 8,
+      "train_end": "2018-10-08",
+      "oos_start": "2018-10-09",
+      "oos_end": "2019-10-09",
+      "n_train": 2306,
+      "n_val": 407,
+      "threshold": 0.000731305719224378,
+      "best_epochs": [
+        9,
+        19,
+        14
+      ],
+      "val_loss": [
+        0.178,
+        0.1767,
+        0.1762
+      ]
+    },
+    {
+      "fold": 9,
+      "train_end": "2019-10-09",
+      "oos_start": "2019-10-10",
+      "oos_end": "2020-10-08",
+      "n_train": 2520,
+      "n_val": 445,
+      "threshold": 0.002934769898778819,
+      "best_epochs": [
+        18,
+        15,
+        19
+      ],
+      "val_loss": [
+        0.3205,
+        0.3185,
+        0.3195
+      ]
+    },
+    {
+      "fold": 10,
+      "train_end": "2020-10-08",
+      "oos_start": "2020-10-09",
+      "oos_end": "2021-10-08",
+      "n_train": 2734,
+      "n_val": 483,
+      "threshold": 0.00012577031715313826,
+      "best_epochs": [
+        3,
+        8,
+        7
+      ],
+      "val_loss": [
+        0.4957,
+        0.4956,
+        0.4938
+      ]
+    },
+    {
+      "fold": 11,
+      "train_end": "2021-10-08",
+      "oos_start": "2021-10-11",
+      "oos_end": "2022-10-10",
+      "n_train": 2949,
+      "n_val": 520,
+      "threshold": 0.0012800769288315644,
+      "best_epochs": [
+        2,
+        1,
+        3
+      ],
+      "val_loss": [
+        0.4615,
+        0.4595,
+        0.4607
+      ]
+    },
+    {
+      "fold": 12,
+      "train_end": "2022-10-10",
+      "oos_start": "2022-10-11",
+      "oos_end": "2023-10-11",
+      "n_train": 3163,
+      "n_val": 558,
+      "threshold": 0.0013787704752618775,
+      "best_epochs": [
+        7,
+        4,
+        3
+      ],
+      "val_loss": [
+        0.406,
+        0.4062,
+        0.4065
+      ]
+    },
+    {
+      "fold": 13,
+      "train_end": "2023-10-11",
+      "oos_start": "2023-10-12",
+      "oos_end": "2024-10-11",
+      "n_train": 3377,
+      "n_val": 596,
+      "threshold": 9.193257565400907e-05,
+      "best_epochs": [
+        7,
+        6,
+        6
+      ],
+      "val_loss": [
+        0.324,
+        0.3238,
+        0.3242
+      ]
+    },
+    {
+      "fold": 14,
+      "train_end": "2024-10-11",
+      "oos_start": "2024-10-14",
+      "oos_end": "2025-10-15",
+      "n_train": 3591,
+      "n_val": 634,
+      "threshold": 0.0021771825900184626,
+      "best_epochs": [
+        2,
+        5,
+        1
+      ],
+      "val_loss": [
+        0.3072,
+        0.3067,
+        0.3066
+      ]
+    },
+    {
+      "fold": 15,
+      "train_end": "2025-10-15",
+      "oos_start": "2025-10-16",
+      "oos_end": "2026-11-17",
+      "n_train": 3805,
+      "n_val": 672,
+      "threshold": null,
+      "best_epochs": [
+        1,
+        2,
+        3
+      ],
+      "val_loss": [
+        0.2508,
+        0.2508,
+        0.2502
+      ]
+    }
+  ],
+  "crash_windows": [
+    {
+      "window": "2008 GFC",
+      "peak": "2007-12-28",
+      "trough": "2009-01-20",
+      "B&H full-DD_%": -60.86672581319692,
+      "oos_days": 0,
+      "note": "in-sample / too few OOS days - not scored",
+      "LSTM_ret_%": null,
+      "LSTM_MDD_%": null,
+      "LSTM_days_flat": null,
+      "LSTM_flat_%": null,
+      "BH_ret_%": null,
+      "BH_MDD_%": null,
+      "EM_ret_%": null,
+      "EM_MDD_%": null
+    },
+    {
+      "window": "DD Sep12-Apr13",
+      "peak": "2012-09-19",
+      "trough": "2013-04-19",
+      "B&H full-DD_%": -43.797145869265194,
+      "oos_days": 145,
+      "note": null,
+      "LSTM_ret_%": -39.512351942478176,
+      "LSTM_MDD_%": -39.512351942478176,
+      "LSTM_days_flat": 52.0,
+      "LSTM_flat_%": 35.86206896551724,
+      "BH_ret_%": -43.78193211510939,
+      "BH_MDD_%": -43.79714586926515,
+      "EM_ret_%": -32.359788564068324,
+      "EM_MDD_%": -32.37247295226731
+    },
+    {
+      "window": "DD Oct18-Jan19",
+      "peak": "2018-10-03",
+      "trough": "2019-01-03",
+      "B&H full-DD_%": -38.5159027086468,
+      "oos_days": 63,
+      "note": null,
+      "LSTM_ret_%": -3.8120696081116456,
+      "LSTM_MDD_%": -7.592551792292701,
+      "LSTM_days_flat": 49.0,
+      "LSTM_flat_%": 77.77777777777779,
+      "BH_ret_%": -37.76772825030197,
+      "BH_MDD_%": -38.515902708646784,
+      "EM_ret_%": -27.60017810010669,
+      "EM_MDD_%": -28.205517775294553
+    },
+    {
+      "window": "2020 COVID",
+      "peak": "2020-02-12",
+      "trough": "2020-03-23",
+      "B&H full-DD_%": -31.427264653297527,
+      "oos_days": 28,
+      "note": null,
+      "LSTM_ret_%": -18.58345540571149,
+      "LSTM_MDD_%": -19.28267373429674,
+      "LSTM_days_flat": 20.0,
+      "LSTM_flat_%": 71.42857142857143,
+      "BH_ret_%": -29.79881287233924,
+      "BH_MDD_%": -31.427264653297506,
+      "EM_ret_%": -21.02621915429397,
+      "EM_MDD_%": -22.30467667686661
+    },
+    {
+      "window": "2022 bear",
+      "peak": "2022-01-03",
+      "trough": "2023-01-05",
+      "B&H full-DD_%": -30.912809397106923,
+      "oos_days": 254,
+      "note": null,
+      "LSTM_ret_%": -14.989365819409993,
+      "LSTM_MDD_%": -31.53706006453093,
+      "LSTM_days_flat": 145.0,
+      "LSTM_flat_%": 57.08661417322835,
+      "BH_ret_%": -29.185342390943923,
+      "BH_MDD_%": -30.912809397106813,
+      "EM_ret_%": -20.188471741968648,
+      "EM_MDD_%": -21.547680031103987
+    },
+    {
+      "window": "DD Dec24-Apr25",
+      "peak": "2024-12-26",
+      "trough": "2025-04-08",
+      "B&H full-DD_%": -33.36051063073737,
+      "oos_days": 70,
+      "note": null,
+      "LSTM_ret_%": 0.0,
+      "LSTM_MDD_%": 0.0,
+      "LSTM_days_flat": 70.0,
+      "LSTM_flat_%": 100.0,
+      "BH_ret_%": -33.148874074536515,
+      "BH_MDD_%": -33.36051063073736,
+      "EM_ret_%": -24.026538568752077,
+      "EM_MDD_%": -24.193353264048046
+    }
+  ],
+  "gate_analysis": {
+    "pooled": {
+      "forget_top vs Close/SMA200-1": {
+        "pearson": -0.17279513462262633,
+        "spearman": -0.19363169138198735
+      },
+      "forget_l1 vs Close/SMA200-1": {
+        "pearson": 0.021209566924606814,
+        "spearman": -0.03865513113735343
+      },
+      "forget_top vs SMA200 slope(20d)": {
+        "pearson": -0.026188801075253395,
+        "spearman": 0.03606547489748432
+      },
+      "forget_l1 vs SMA200 slope(20d)": {
+        "pearson": -0.16145762267483785,
+        "spearman": -0.1550604058898986
+      },
+      "forget_top vs [control] Close/SMA50-1": {
+        "pearson": -0.229964368852748,
+        "spearman": -0.2722451866390213
+      },
+      "forget_l1 vs [control] Close/SMA50-1": {
+        "pearson": 0.22876143696347817,
+        "spearman": 0.13355243668419606
+      },
+      "forget_top vs [control] 20d return": {
+        "pearson": -0.24411240818253044,
+        "spearman": -0.2907856823127357
+      },
+      "forget_l1 vs [control] 20d return": {
+        "pearson": 0.27491680517624123,
+        "spearman": 0.1905663620331273
+      }
+    },
+    "within_fold": {
+      "forget_top vs Close/SMA200-1": -0.3500825240143523,
+      "forget_l1 vs Close/SMA200-1": 0.12423871908850216,
+      "forget_top vs SMA200 slope(20d)": -0.14561699201462558,
+      "forget_l1 vs SMA200 slope(20d)": -0.1213442354083894,
+      "forget_top vs [control] Close/SMA50-1": -0.3314197990237886,
+      "forget_l1 vs [control] Close/SMA50-1": 0.28021145802424974,
+      "forget_top vs [control] 20d return": -0.31985303550776767,
+      "forget_l1 vs [control] 20d return": 0.3137515778375599
+    },
+    "first_diff": {
+      "forget_top vs Close/SMA200-1": -0.3365044051114921,
+      "forget_l1 vs Close/SMA200-1": 0.22913082649674751,
+      "forget_top vs SMA200 slope(20d)": -0.09393388640574725,
+      "forget_l1 vs SMA200 slope(20d)": 0.008269822176727809,
+      "forget_top vs [control] Close/SMA50-1": -0.34166491901808055,
+      "forget_l1 vs [control] Close/SMA50-1": 0.2190371197545423,
+      "forget_top vs [control] 20d return": -0.2990486525371844,
+      "forget_l1 vs [control] 20d return": 0.19439998215014753
+    },
+    "pc1_per_fold": [
+      {
+        "fold": 0,
+        "Close/SMA200-1": 0.8873795363248568,
+        "SMA200 slope(20d)": 0.8191880648302144,
+        "[control] Close/SMA50-1": 0.4929278887216049,
+        "[control] 20d return": 0.3085643176620997
+      },
+      {
+        "fold": 1,
+        "Close/SMA200-1": 0.0028799808537255875,
+        "SMA200 slope(20d)": 0.4632829263036155,
+        "[control] Close/SMA50-1": 0.5196998298513923,
+        "[control] 20d return": 0.5091508415432222
+      },
+      {
+        "fold": 2,
+        "Close/SMA200-1": 0.9234255827924447,
+        "SMA200 slope(20d)": 0.44367583770643604,
+        "[control] Close/SMA50-1": 0.2656229534005278,
+        "[control] 20d return": 0.04086853180899371
+      },
+      {
+        "fold": 3,
+        "Close/SMA200-1": 0.68094532786154,
+        "SMA200 slope(20d)": 0.39182350108919795,
+        "[control] Close/SMA50-1": 0.5402711936477017,
+        "[control] 20d return": 0.3642083229173714
+      },
+      {
+        "fold": 4,
+        "Close/SMA200-1": 0.7846598429312467,
+        "SMA200 slope(20d)": 0.7096267497203658,
+        "[control] Close/SMA50-1": 0.7551364543539802,
+        "[control] 20d return": 0.61512342144606
+      },
+      {
+        "fold": 5,
+        "Close/SMA200-1": 0.8439614563274291,
+        "SMA200 slope(20d)": 0.7929152955819774,
+        "[control] Close/SMA50-1": 0.684140741877605,
+        "[control] 20d return": 0.494693085143444
+      },
+      {
+        "fold": 6,
+        "Close/SMA200-1": 0.08260760661405535,
+        "SMA200 slope(20d)": 0.633057086344715,
+        "[control] Close/SMA50-1": 0.37811465342726097,
+        "[control] 20d return": 0.3502319803291822
+      },
+      {
+        "fold": 7,
+        "Close/SMA200-1": 0.7012787173069337,
+        "SMA200 slope(20d)": 0.6823934546432623,
+        "[control] Close/SMA50-1": 0.5536819763616909,
+        "[control] 20d return": 0.38551490281446604
+      },
+      {
+        "fold": 8,
+        "Close/SMA200-1": 0.645876226454974,
+        "SMA200 slope(20d)": 0.07043138460001086,
+        "[control] Close/SMA50-1": 0.8742423609299456,
+        "[control] 20d return": 0.6994798464198199
+      },
+      {
+        "fold": 9,
+        "Close/SMA200-1": 0.7952267242396771,
+        "SMA200 slope(20d)": 0.614781974224914,
+        "[control] Close/SMA50-1": 0.8632711515901393,
+        "[control] 20d return": 0.6742742431880608
+      },
+      {
+        "fold": 10,
+        "Close/SMA200-1": 0.4411146649905127,
+        "SMA200 slope(20d)": 0.8048783292313162,
+        "[control] Close/SMA50-1": 0.37813588069879783,
+        "[control] 20d return": 0.2633021435141745
+      },
+      {
+        "fold": 11,
+        "Close/SMA200-1": 0.7455317369010335,
+        "SMA200 slope(20d)": 0.4607367878495841,
+        "[control] Close/SMA50-1": 0.8516179586695983,
+        "[control] 20d return": 0.6957907466789013
+      },
+      {
+        "fold": 12,
+        "Close/SMA200-1": 0.5541798938456979,
+        "SMA200 slope(20d)": 0.23488557852413308,
+        "[control] Close/SMA50-1": 0.8483189012017941,
+        "[control] 20d return": 0.6510347136002369
+      },
+      {
+        "fold": 13,
+        "Close/SMA200-1": 0.7478865798215898,
+        "SMA200 slope(20d)": 0.9571389346362655,
+        "[control] Close/SMA50-1": 0.3006070776053159,
+        "[control] 20d return": 0.15346437760554077
+      },
+      {
+        "fold": 14,
+        "Close/SMA200-1": 0.6800528562261796,
+        "SMA200 slope(20d)": 0.008549320179636532,
+        "[control] Close/SMA50-1": 0.8275067737244111,
+        "[control] 20d return": 0.6857822694135209
+      },
+      {
+        "fold": 15,
+        "Close/SMA200-1": 0.4038638897079613,
+        "SMA200 slope(20d)": 0.09177913760087206,
+        "[control] Close/SMA50-1": 0.5833531224777728,
+        "[control] 20d return": 0.34696219774553555
+      }
+    ],
+    "best_unit_per_fold": [
+      {
+        "fold": 0,
+        "Close/SMA200-1": 0.9093165503342717,
+        "Close/SMA200-1 unit": 26,
+        "SMA200 slope(20d)": 0.9350039978558954,
+        "SMA200 slope(20d) unit": 6,
+        "[control] Close/SMA50-1": 0.8320838681803898,
+        "[control] Close/SMA50-1 unit": 0,
+        "[control] 20d return": 0.7134053235107921,
+        "[control] 20d return unit": 0
+      },
+      {
+        "fold": 1,
+        "Close/SMA200-1": 0.9283330093428122,
+        "Close/SMA200-1 unit": 46,
+        "SMA200 slope(20d)": 0.9076428135601495,
+        "SMA200 slope(20d) unit": 38,
+        "[control] Close/SMA50-1": 0.8934630012887609,
+        "[control] Close/SMA50-1 unit": 29,
+        "[control] 20d return": 0.8302071359125737,
+        "[control] 20d return unit": 35
+      },
+      {
+        "fold": 2,
+        "Close/SMA200-1": 0.9182947590024664,
+        "Close/SMA200-1 unit": 48,
+        "SMA200 slope(20d)": 0.8698627460376636,
+        "SMA200 slope(20d) unit": 37,
+        "[control] Close/SMA50-1": 0.8373485063663696,
+        "[control] Close/SMA50-1 unit": 29,
+        "[control] 20d return": 0.6836593148783152,
+        "[control] 20d return unit": 3
+      },
+      {
+        "fold": 3,
+        "Close/SMA200-1": 0.7869874818824054,
+        "Close/SMA200-1 unit": 56,
+        "SMA200 slope(20d)": 0.6951302364662594,
+        "SMA200 slope(20d) unit": 50,
+        "[control] Close/SMA50-1": 0.8234311932129355,
+        "[control] Close/SMA50-1 unit": 5,
+        "[control] 20d return": 0.6352744703955663,
+        "[control] 20d return unit": 29
+      },
+      {
+        "fold": 4,
+        "Close/SMA200-1": 0.8929093786167172,
+        "Close/SMA200-1 unit": 26,
+        "SMA200 slope(20d)": 0.9001623904626634,
+        "SMA200 slope(20d) unit": 8,
+        "[control] Close/SMA50-1": 0.879125585668311,
+        "[control] Close/SMA50-1 unit": 0,
+        "[control] 20d return": 0.7480765163187427,
+        "[control] 20d return unit": 0
+      },
+      {
+        "fold": 5,
+        "Close/SMA200-1": 0.8610849119772593,
+        "Close/SMA200-1 unit": 0,
+        "SMA200 slope(20d)": 0.9511375459705322,
+        "SMA200 slope(20d) unit": 56,
+        "[control] Close/SMA50-1": 0.8769982781264472,
+        "[control] Close/SMA50-1 unit": 29,
+        "[control] 20d return": 0.7339344049565704,
+        "[control] 20d return unit": 0
+      },
+      {
+        "fold": 6,
+        "Close/SMA200-1": 0.8942092134369647,
+        "Close/SMA200-1 unit": 44,
+        "SMA200 slope(20d)": 0.8501953009628199,
+        "SMA200 slope(20d) unit": 11,
+        "[control] Close/SMA50-1": 0.8653040320715347,
+        "[control] Close/SMA50-1 unit": 43,
+        "[control] 20d return": 0.7458457404917715,
+        "[control] 20d return unit": 52
+      },
+      {
+        "fold": 7,
+        "Close/SMA200-1": 0.8216948549271238,
+        "Close/SMA200-1 unit": 0,
+        "SMA200 slope(20d)": 0.8451706531017652,
+        "SMA200 slope(20d) unit": 39,
+        "[control] Close/SMA50-1": 0.8108753477669225,
+        "[control] Close/SMA50-1 unit": 8,
+        "[control] 20d return": 0.7038397262093479,
+        "[control] 20d return unit": 8
+      },
+      {
+        "fold": 8,
+        "Close/SMA200-1": 0.9121790959874038,
+        "Close/SMA200-1 unit": 21,
+        "SMA200 slope(20d)": 0.7730518135668292,
+        "SMA200 slope(20d) unit": 17,
+        "[control] Close/SMA50-1": 0.9111011982412348,
+        "[control] Close/SMA50-1 unit": 44,
+        "[control] 20d return": 0.8431840483077387,
+        "[control] 20d return unit": 44
+      },
+      {
+        "fold": 9,
+        "Close/SMA200-1": 0.8070329966085826,
+        "Close/SMA200-1 unit": 38,
+        "SMA200 slope(20d)": 0.8321886299670875,
+        "SMA200 slope(20d) unit": 38,
+        "[control] Close/SMA50-1": 0.8500492503384295,
+        "[control] Close/SMA50-1 unit": 5,
+        "[control] 20d return": 0.8240835637799829,
+        "[control] 20d return unit": 29
+      },
+      {
+        "fold": 10,
+        "Close/SMA200-1": 0.869237947954554,
+        "Close/SMA200-1 unit": 58,
+        "SMA200 slope(20d)": 0.9126824512249513,
+        "SMA200 slope(20d) unit": 6,
+        "[control] Close/SMA50-1": 0.8161675934694442,
+        "[control] Close/SMA50-1 unit": 0,
+        "[control] 20d return": 0.6369165861566289,
+        "[control] 20d return unit": 34
+      },
+      {
+        "fold": 11,
+        "Close/SMA200-1": 0.9444294303888704,
+        "Close/SMA200-1 unit": 26,
+        "SMA200 slope(20d)": 0.8914078931782391,
+        "SMA200 slope(20d) unit": 6,
+        "[control] Close/SMA50-1": 0.9238382289366285,
+        "[control] Close/SMA50-1 unit": 0,
+        "[control] 20d return": 0.8492695580431142,
+        "[control] 20d return unit": 0
+      },
+      {
+        "fold": 12,
+        "Close/SMA200-1": 0.9352397805932582,
+        "Close/SMA200-1 unit": 45,
+        "SMA200 slope(20d)": 0.8791774707777351,
+        "SMA200 slope(20d) unit": 45,
+        "[control] Close/SMA50-1": 0.9042168810415974,
+        "[control] Close/SMA50-1 unit": 43,
+        "[control] 20d return": 0.7384153074768083,
+        "[control] 20d return unit": 4
+      },
+      {
+        "fold": 13,
+        "Close/SMA200-1": 0.9036893828371543,
+        "Close/SMA200-1 unit": 30,
+        "SMA200 slope(20d)": 0.9651309367605402,
+        "SMA200 slope(20d) unit": 52,
+        "[control] Close/SMA50-1": 0.8915261197325212,
+        "[control] Close/SMA50-1 unit": 29,
+        "[control] 20d return": 0.8075747518462081,
+        "[control] 20d return unit": 29
+      },
+      {
+        "fold": 14,
+        "Close/SMA200-1": 0.9045991677360441,
+        "Close/SMA200-1 unit": 26,
+        "SMA200 slope(20d)": 0.926081187338691,
+        "SMA200 slope(20d) unit": 14,
+        "[control] Close/SMA50-1": 0.8308307817701737,
+        "[control] Close/SMA50-1 unit": 0,
+        "[control] 20d return": 0.7618262579523452,
+        "[control] 20d return unit": 29
+      },
+      {
+        "fold": 15,
+        "Close/SMA200-1": 0.8409221685456587,
+        "Close/SMA200-1 unit": 56,
+        "SMA200 slope(20d)": 0.6254958267663073,
+        "SMA200 slope(20d) unit": 50,
+        "[control] Close/SMA50-1": 0.8480935006520027,
+        "[control] Close/SMA50-1 unit": 7,
+        "[control] 20d return": 0.686288653098578,
+        "[control] 20d return unit": 7
+      }
+    ],
+    "median_abs_pc1": {
+      "Close/SMA200-1": 0.6911120225842369,
+      "SMA200 slope(20d)": 0.5390324502642647,
+      "[control] Close/SMA50-1": 0.5685175494197319,
+      "[control] 20d return": 0.44010399397895505
+    },
+    "median_abs_best_unit": {
+      "Close/SMA200-1": 0.8989492981370595,
+      "SMA200 slope(20d)": 0.8852926819779872,
+      "[control] Close/SMA50-1": 0.8576766412049821,
+      "[control] 20d return": 0.7421305239842899
+    }
+  },
+  "ablation": {
+    "baseline (200d features intact)": {
+      "Directional Accuracy (%)": 51.93970842599457,
+      "MDD (%)": -41.01827360830127,
+      "Total ROI (%)": 1183.1779179783425,
+      "Total Trades": 39.0,
+      "dDA (pp)": 0.0,
+      "dMDD (pp)": 0.0
+    },
+    "200d features neutralised (=train mean)": {
+      "Directional Accuracy (%)": 52.285643686681496,
+      "MDD (%)": -38.865248871804425,
+      "Total ROI (%)": 1363.4775920975703,
+      "Total Trades": 34.0,
+      "dDA (pp)": 0.3459352606869288,
+      "dMDD (pp)": 2.153024736496846
+    },
+    "200d features shuffled in time": {
+      "Directional Accuracy (%)": 51.9644180874722,
+      "MDD (%)": -39.21091438031884,
+      "Total ROI (%)": 1284.6491463810662,
+      "Total Trades": 35.0,
+      "dDA (pp)": 0.024709661477629652,
+      "dMDD (pp)": 1.807359227982431
+    }
+  },
+  "verdict": {
+    "label": "NOT SUPPORTED",
+    "text": "VERDICT: NOT SUPPORTED. Time in market 69.3%. (a) Mean top-layer forget-gate correlates r=-0.17 with Close/SMA200-1 and r=-0.03 with the 20-day SMA_200 slope (pooled Pearson); median per-fold |r| of cell-state PC1 = 0.69 / 0.54 (placebo 50-day trend: 0.57; a 200-day-specific memory should beat the placebo) -> not met (needs pooled |r|>=0.3 and PC1 |r|>=0.5). (b) in 5 scored OOS crash window(s) the strategy had a shallower MDD than an exposure-matched constant-weight Buy & Hold in 3; mean return -15.38% vs Buy & Hold -34.74%; flat 68.43% of crash days vs 30.71% overall (needs >=10 pp more flat in crashes) -> not met. (c) Removing the 200-day features at test time changes directional accuracy by up to 0.02 pp and MDD by up to 1.81 pp (baseline DA 51.94%, MDD -41.02%) -> not met (needs DA drop >=1 pp or MDD worsening >=2 pp). SKILL CHECK: corr(predicted, actual next-day return) = -0.012; up-day base rate 52.9% (directional accuracy 51.94% is only meaningful relative to it); average daily return when long 10.6 bps vs flat 10.9 bps. TIMING CHECK: strategy Sharpe 0.83 / MDD -41.02% vs a constant 69% Buy & Hold Sharpe 0.96 / MDD -32.37% - lower drawdown than full Buy & Hold is only evidence of skill if it beats this. CAVEATS: the initial training window runs to 2010-10-05 and contains the whole 2008 crash, so no 2008 claim is out-of-sample; the LSTM has 54,081 parameters vs 13,569 for a same-size Simple RNN (capacity confound); trade thresholds are tuned on validation data that also drives early stopping (mild optimism); gate/cell-state correlations between smooth trending series can be spurious and units are not comparable across retrained folds. Heuristic thresholds; 0/3 criteria met."
+  },
+  "smoke_test_synthetic_data": false
+}

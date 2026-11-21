@@ -1,0 +1,23 @@
+{
+  "config": {
+    "ticker": "AAPL",
+    "start": "2010-01-01",
+    "end": "2024-12-31",
+    "train_frac": 0.7,
+    "val_frac": 0.15,
+    "seq_len": 30,
+    "batch_size": 64,
+    "epochs": 50,
+    "lr": 0.001,
+    "patience": 8,
+    "hidden_size": 64,
+    "num_layers": 2,
+    "dropout": 0.2,
+    "cost_bps": 5.0,
+    "seed": 42,
+    "device": "auto",
+    "out_dir": "outputs"
+  },
+  "fingerprint": "9f6f7a858136",
+  "data_hash": "44eccf76ba77"
+}
